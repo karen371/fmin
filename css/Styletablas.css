@@ -1,0 +1,50 @@
+
+h2 {
+  color: black;
+  font-size: 40px;
+  font-weight: 500;
+  margin: 50px 40px 40px;
+}
+
+.ContenedorTabla{
+    width: 90%; /*MODIFICADO*/
+    background: white;
+    margin: 50px auto;
+    display: grid;
+    margin-left: 5%;
+    margin-right: 5%;
+    align-content: center;
+}
+
+.rwd-table{
+  background: white;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+tr {
+  border-top: 1px solid #ff9d9d;
+  border-bottom: 1px solid #ff9d9d;
+  width: 950px;
+}
+
+th {
+  padding: 3px;
+  width: 100px;
+  height: 50px;
+}
+td{
+  padding: 3px;
+  width: 100px;
+}
+thead{
+   background-color: #d42009;/*#BC1C08*/
+   color: white;
+   border-bottom: solid 2px #ca0625; /*#E3072A*/
+}
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}

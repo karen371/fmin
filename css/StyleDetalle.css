@@ -1,0 +1,39 @@
+.Separacion{
+  background-color: #ff9d9d;
+  margin-top: 15px;
+  margin-bottom:  0px;
+  margin-right: 8%;
+  margin-left: 8%;
+}
+.Separar{
+  background-color: #ff9d9d;
+  margin-top: 15px;
+  margin-bottom:  0px;
+  margin-right: 8%;
+  margin-left: 0%;
+}
+
+h2 {
+  color: black;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.content{
+  margin-right: 10%;
+  margin-left: 10%;
+
+}
+
+label {
+  text-align: left;
+  display: block;
+  padding: 0.5em 1.5em 0.5em 0;
+}
+
+@media (min-width: 400px){
+  label {
+    float: left;
+    width: 200px;
+  }
+}
