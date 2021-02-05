@@ -25,5 +25,13 @@ class Estado{
       }
       return $this->cod;
     }
+    public function Insert($nombre){
+      if($this->db->query('INSERT INTO  estado (nombre) VALUES ("'.$nombre.'")')){
+          return true;
+      }
+      else{
+          return false;
+      }
+    }
 }
  ?>

@@ -69,7 +69,9 @@ $fechaActual = date('Y-m-d');
                    ?><option id="<?php $dato['nomcliente']?>"><?php echo $dato['nomcliente'] ?></option><?php }?>
              </select>
             </td>
-            <td></td>
+            <td>
+                <button class="boton"  data-toggle="modal" data-target="#FormModal">+</button>
+            </td>
           </tr>
           <tr>
             <td><label>Tipo Solicitud</label></td>
@@ -81,7 +83,7 @@ $fechaActual = date('Y-m-d');
               </select>
             </td>
             <td>
-                <button class="boton"  data-toggle="modal" data-target="#FormModal">Agregar solicitud</button>
+                <button class="boton"  data-toggle="modal" data-target="#FormModal">+</button>
             </td>
           </tr>
           <tr>
@@ -94,6 +96,9 @@ $fechaActual = date('Y-m-d');
                   }
                  ?>
               </select>
+            </td>
+            <td>
+                <button class="boton"  data-toggle="modal" data-target="#FormModal">+</button>
             </td>
           </tr>
           <tr >

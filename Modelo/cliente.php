@@ -25,6 +25,14 @@ class cliente_model{
       }
       return $this->cod;
     }
+    public function Insert($nombre){
+      if($this->db->query('INSERT INTO  cliente (nomcliente) VALUES ("'.$nombre.'")')){
+          return true;
+      }
+      else{
+          return false;
+      }
+    }
 }
 
 ?>
