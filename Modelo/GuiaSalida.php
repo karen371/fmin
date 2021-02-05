@@ -56,7 +56,15 @@ class GuiaSalida
       return $archivo;
     }
   }
-
+  /*FALTA CAMBIAR EL DOCUMENTO*/
+  public function UpdatedDocumento($fecha, $num, $cod, $doc){
+    if($this->db->query('UPDATE gdespachoe SET codnumero="'.$num.'", fecha="'.$fecha.'", archivo="'.$doc.'" WHERE codDe ="'.$cod.'"')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }
 
  ?>

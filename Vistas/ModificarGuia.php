@@ -8,11 +8,14 @@ require_once("../Controller/ControladorSolicitud.php");
 require_once("../Controller/ControladorEstado.php");
 require_once('../Modelo/Busqueda.php');
 require_once('../Modelo/GuiaSalida.php');
+require_once('../Modelo/GuiaEntrada.php');
 require_once('../Modelo/descripcion.php');
 $fechaActual = date('Y-m-d');
 
 $busqueda = new Busqueda();
-$guiaSali = new descripcion_model();
+$des      = new descripcion_model();
+$guiaS    = new GuiaSalida();
+$guiaE    = new GuiaEntrada();
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -25,7 +28,7 @@ $guiaSali = new descripcion_model();
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Styleformulario.css">
+    <link rel="stylesheet" href="../css/Styleform.css">
     <link rel="stylesheet" href="../css/StyleMenu.css">
     <title>Registrar</title>
   </head>
@@ -35,13 +38,14 @@ $guiaSali = new descripcion_model();
     </head>
     <?php
         $x = ($_GET['codigo']);
-        if($guiaSali->Existe($x)){
+        if($des->Existe($x)){
           $buscar = $busqueda->BuscarDetalle($x);
           foreach ($buscar as $fol) {
             $folio     = $fol ['codFolio'];    $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];
             $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
             $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
             $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];
+            $docEnt    = $guiaE->NombreDocumento($numero);  $docSal = $guiaS->NombreDocumento($numS);
             /*Falta la informacion de la guia de salida*/
             $texto = substr($detalle, 0, 10);
             $palabras = explode(' ', $texto);
@@ -58,7 +62,7 @@ $guiaSali = new descripcion_model();
             $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];
             $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
             $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
-            $numS      = '';                   $nfecha    = '';
+            $numS      = '';                   $nfecha    = ''; $docEnt='';  $docSal='';
             /*Falta la informacion de la guia de salida*/
             $texto = substr($detalle, 0, 10);
             $palabras = explode(' ', $texto);
@@ -156,7 +160,18 @@ $guiaSali = new descripcion_model();
               <td></td>
             </tr>
             <tr>
-              <td colspan="2"><h3 class="titulos" colspan="2">Datos de Ingreso</h3></td>
+              <td><label>Documento actual</label></td>
+              <td> <?php echo  $docEnt ?> </td>
+            </tr>
+            <tr>
+              <td><label>Subir Documento</label></td>
+              <td>
+                <input id="" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng" />
+              </td>
+            </tr>
+            <!------------------------------------------------------------------------------>
+            <tr>
+              <td colspan="2"><h3 class="titulos" colspan="2">Datos de Egreso</h3></td>
               <td></td>
             </tr>
             <tr>
@@ -168,14 +183,18 @@ $guiaSali = new descripcion_model();
               <td><input class="input" type="text" id="numsal" name="numsal" value="<?php echo $numS ; ?>"></td>
             </tr>
             <tr>
-              <td><label>Documento</label></td>
+              <td> <label>Documento</label></td>
+              <td><?php echo $docSal ?></td>
+            </tr>
+            <tr>
+              <td><label>Subir Documento</label></td>
               <td>
                 <input id="uploadImage" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
-                <div id="preview"></div><br>
+                <div id="error" style="color:red"></div><br>
               </td>
             </tr>
             <tr>
-              <td colspan="2"><button type="submit">Guardar</button></td>
+              <td colspan="2"><button class="button" type="submit">Guardar</button></td>
               <td></td>
             </tr>
          </table>
@@ -195,30 +214,28 @@ $guiaSali = new descripcion_model();
        processData:false,
        beforeSend : function()
        {
-         //$("#preview").fadeOut();
-         $("#err").fadeOut();
+         $("#error").fadeOut();
        },
        success: function(data)
        {
          if(data=='invalid')
          {
            // formato de archivo invalido
-           $("#preview").html("Formato de archivo no valido").fadeIn();
+           $("#error").html("Formato de archivo no valido").fadeIn();
          }
          else if (data == 'error') {
-           $("#preview").html("Error al ingresar los datos").fadeIn();
+           $("#error").html("Error al ingresar los datos").fadeIn();
          }
          else
          {
            alert(data);
-           //$("#preview").html(data).fadeIn();
            $("#ingresar")[0].reset();
            location.href ="Inicio.php";
          }
        },
        error: function(e)
        {
-         $("#err").html(e).fadeIn();
+         $("#error").html(e).fadeIn();
        }
      });
    }));

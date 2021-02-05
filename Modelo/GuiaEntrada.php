@@ -29,6 +29,19 @@ class GuiaEntrada
       return false;
     }
   }
+
+  /*FALTA CAMBIAR EL DOCUMENTO*/ /*revisar el codigo ingresado como codigo guia*/
+    public function ModificarDocumento($NUMERO, $numcli, $numsol, $CODIGO, $DETALLE ,$newDate, $numeroguia, $doc){
+      if($this->db->query('UPDATE gdespachoc SET codnumero= "'.$NUMERO.'", codcliente="'.$numcli.'" , TipoSolicitud= "'.$numsol.'",
+                            codS="'.$CODIGO.'" ,descripcion="'.$DETALLE.'" ,fecha="'.$newDate.'"  ,archivo="'.$doc.'"  
+                            WHERE  codDc= "'.$numeroguia.'"  ')){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
   /*ENTREGA EL CODIGO DE EL ULTIMO REGISTRO*/
   public function get_codMaximo (){
     $consulta=$this->db->query('SELECT MAX(codDc) FROM gdespachoc');

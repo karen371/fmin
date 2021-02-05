@@ -31,15 +31,9 @@ $guia      = new GuiaSalida();
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];        $estado    = $fol ['estado'];
         $documento = "<button type='button' name='button'>
-           <a href='../logica/descarga.php?archivos=".$guia->Documento($numS)."'>Descargar</a>
-        </button>";
-        $nombreDoc = $guia->NombreDocumento($numS);k
-
-        /*Falta la informacion de la guia de salida*/
-        $texto = substr($detalle, 0, 10);
-        $palabras = explode(' ', $texto);
-        $resultado = implode(' ', $palabras);
-        $resultado .= '...';
+                        <a href='../logica/descarga.php?archivos=".$guia->Documento($numS)."'>Descargar</a>
+                      </button>";
+        $nombreDoc = $guia->NombreDocumento($numS);
       }
     }
     else{
@@ -50,11 +44,6 @@ $guia      = new GuiaSalida();
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $estado = $fol ['estado'];         $numS      = '';                    $nfecha    = '';
         $documento = ' ';                  $nombreDoc = ' ';
-        /*Falta la informacion de la guia de salida*/
-        $texto = substr($detalle, 0, 10);
-        $palabras = explode(' ', $texto);
-        $resultado = implode(' ', $palabras);
-        $resultado .= '...';
       }
     }
 ?>
@@ -137,4 +126,9 @@ $guia      = new GuiaSalida();
  </table>
 </div>
   </body>
+  <footer>
+    <br><br><br>
+
+  </footer>
 </html>
+<!--ARREGLAR LOS BOTONES DE DESCARGAS PONERLOS PRESENTABLES-->
