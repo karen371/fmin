@@ -25,7 +25,7 @@ class solicitud_model{
       return $this->cod;
     }
     public function Insert($nombre){
-      if($this->db->query('INSERT INTO tiposolicitud( nombre) VALUES ("'.$nombre.'")')){
+      if($this->db->query('INSERT INTO tiposolicitud(nombre) VALUES ("'.$nombre.'")')){
           return true;
       }
       else{

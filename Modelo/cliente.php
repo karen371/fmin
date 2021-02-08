@@ -6,7 +6,7 @@ class cliente_model{
     private $cod;
 
     public function __construct(){
-        $this->db=Conectar::conexion();
+        $this->db = Conectar::conexion();
         $this->cliente=array();
     }
     /*MOSTRAR UN LISTADO CON NOMBRES DE LOS CLIENTES*/
