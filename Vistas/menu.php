@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,6 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
       <ul class="navbar-nav">
+        <li><a class="dropdown-item" href="#"><span class="icon-house"></span><?php echo $_SESSION['nombre']." ".$_SESSION['apellido'] ?></a></li>
         <li><a class="dropdown-item" href="Inicio.php"><span class="icon-suitcase"></span>Inicio</a></li>
         <li><a class="dropdown-item" href="../logica/cerrarsesion.php"><span class="icon-mail"></span>Cerrar Sesión</a></li>
       </ul>
