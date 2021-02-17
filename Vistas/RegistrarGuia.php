@@ -1,12 +1,12 @@
 <?php
 /*FALTA EL ENCARGADO EL CUAL SE PUEDE SACAR DIRECTAMENTE DE EL SESSION[]*/
 session_start();
-require_once('../Datos/Conexion.php');
+require_once('../Datos/Connection.php');
 require_once("../Datos/Connection.php");
 require_once("../Controller/ControladorCliente.php");
 require_once("../Controller/ControladorSolicitud.php");
 require_once("../Controller/ControladorEstado.php");
-$con = new Conexion();
+
 $fechaActual = date('Y-m-d');
 ?>
 <!DOCTYPE html>
@@ -14,196 +14,209 @@ $fechaActual = date('Y-m-d');
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Latest minified bootstrap css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
 
-    <!-- Latest minified bootstrap js -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="../css/Styleform.css">
-    <link rel="stylesheet" href="../css/StyleMenu.css">
     <title>Registrar</title>
   </head>
   <body>
-    <head>
         <?php  include('menu.php');?>
-        <!--SE PUEDE CRER OTRO MENU CON PEQUEÑOS ICONOS QUE INDIQUEN LA SOLICITUD -->
-    </head>
-    <div class="contenedor">
-      <form id="ingresar" action="../logica/registrarguia.php" method="post" enctype="multipart/form-data" class="form">
-          <table>
-            <tr>
-              <th colspan="2"><h2 class="titulo">Guia de Despacho</h2></th>
-              <th></th>
-            </tr>
-          <tr>
-            <td><label> N° Guia </label></td>
-            <td class="td"><input  class="input" type="text" id="numero" name="numero"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><label> Código Solped </label></td>
-            <td><input style="text-transform:uppercase" class="input" type="text"   id="codigo" name="codigo"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><label> Fecha Ingreso </label></td>
-            <td><input class="input" type="date"  id="fecha" name="fecha" value="<?php echo $fechaActual ?>"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><label>Cliente</label></td>
-            <td>
-             <select id="cliente" name="cliente">
-               <?php
-                 foreach ($datos as $key => $dato) {
-                   ?><option id="<?php $dato['nomcliente']?>"><?php echo $dato['nomcliente'] ?></option><?php }?>
-             </select>
-            </td>
-            <td>
-                <button class="boton"  data-toggle="modal" data-target="#FormModal">+</button>
-            </td>
-          </tr>
-          <tr>
-            <td><label>Tipo Solicitud</label></td>
-            <td>
-              <select id="solicitud" name="solicitud">
-                <?php
-                foreach ($data as $key => $s) {
-                  ?><option id="<?php $s['nombre']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
+    <div class="container">
+      <div class="col-12"></div>
+      <div class="col-3"></div>
+      <div class="col-9">
+        <p class="text-center my-4 display-5">Guia de Despacho</p>
+             <form id="ingresar" action="../logica/registrarguia.php" method="post" enctype="multipart/form-data" class="form">
+             <div class="row mb-3">
+              <label for="numero" class="col-sm-3 col-form-label">N° Guia</label>
+              <div class="col-sm-9">
+              <input  class="form-control" type="text" id="numero" name="numero" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="codigo" class="col-sm-3 col-form-label">Código Solped</label>
+              <div class="col-sm-9">
+              <input style="text-transform:uppercase" class="form-control" type="text"   id="codigo" name="codigo">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="fecha" class="col-sm-3 col-form-label">Fecha Ingreso</label>
+              <div class="col-sm-9">
+              <input class="form-control" type="date"  id="fecha" name="fecha" value="<?php echo $fechaActual ?>">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
+              <div class="col-sm-8">
+              <select class="form-select" id="cliente" name="cliente">
+                 <?php foreach ($datos as $key => $dato) {?>
+                    <option id="<?php $dato['nomcliente']?>"><?php echo $dato['nomcliente']?></option>
+                 <?php }?>
               </select>
-            </td>
-            <td>
-                <button class="boton"  data-toggle="modal" data-target="#FormModalSol">+</button>
-            </td>
-          </tr>
-          <tr>
-            <td><label>Estado</label></td>
-            <td>
-              <select id="estado" name="estado">
-                <?php
-                  foreach ($state as $estado) {
-                    ?> <option id="<?php $estado['nombre'] ?>"><?php echo $estado['nombre'] ?></option> }<?php
-                  }
-                 ?>
+              </div>
+              <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormCli">+</button></div>
+            </div>
+            <div class="row mb-3">
+              <label for="solicitud" class="col-sm-3 col-form-label">Tipo Solicitud</label>
+              <div class="col-sm-8">
+                <select class="form-select" id="solicitud" name="solicitud">
+                  <?php foreach ($data as $key => $s) {?>
+                    <option id="<?php $s['nombre']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
+                </select>
+              </div>
+              <div class="col-sm-1">
+                               <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormSol">+</button></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="estado" class="col-sm-3 col-form-label">Estado</label>
+              <div class="col-sm-8">
+              <select class="form-select" id="estado" name="estado">
+                <?php foreach ($state as $estado) {?>
+                    <option id="<?php $estado['nombre'] ?>"><?php echo $estado['nombre'] ?></option>
+                <?php };?>
               </select>
-            </td>
-            <td>
-                <button class="boton"  data-toggle="modal" data-target="#FormModalEst">+</button>
-            </td>
-          </tr>
-          <tr >
-            <td><label>Detalle</label></td>
-            <td rowspan="2"><textarea class="textarea" type="text" id="detalle" name="detalle"  maxlength="1000 "  cols="40" rows="5"></textarea></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th></th>
-            <td></td>
-          </tr>
-          <tr>
-            <td><label>Documento</label></td>
-            <td>
-              <input id="uploadImage" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" /> <!--cabiar nombre-->
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td> <label></label></td>
-            <td><div id="preview" style="color:red;"></div><br></td>
-          </tr>
-          <tr>
-            <td colspan="2"><button class="button" type="submit">Registrar</button></td>
-            <td></td>
-            <td></td>
-          </tr>
-      </table>
-    </form>
+              </div>
+              <div class="col-sm-1">
+                    <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormEst">+</button></div>
+              </div>
+            </div>
+
+             <div class="row mb-3">
+              <label for="detalle" class="col-sm-3 col-form-label">Detalle</label>
+              <div class="col-sm-9">
+              <textarea class="form-control" type="text" id="detalle" name="detalle"  maxlength="1000 "  cols="40" rows="5"></textarea>
+              </div>
+             </div>
+
+             <div class="row mb-3">
+              <label for="doc" class="col-sm-3 col-form-label">Documento</label>
+              <div class="col-sm-9">
+              <input id="uploadImage" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
+              </div>
+            </div>
+            <div class="d-grid gap-3" >
+                <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
+            </div>
+          </form>
+        </div>
     </div>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script>
-  $(document).ready(function (e) {
-    $("#ingresar").on('submit',(function(e) {
-      e.preventDefault();
-      $.ajax({
-       url: "../logica/registrarguia.php",
-       type: "POST",
-       data:  new FormData(this),
-       contentType: false,
-       cache: false,
-       processData:false,
-       beforeSend : function()
-       {
-         $("#preview").fadeOut();
-       },
-       success: function(data)
-       {
-         if(data=='invalid')
-         {
-           $("#preview").html("Formato de archivo invalido").fadeIn(); // formato de archivo invalido
-         }
-         else if (data == 'error') {
-            $("#preview").html("Error en los datos ingresados").fadeIn(); // formato de archivo invalido
-         }
-         else
-         {
-           alert(data);
-           $("#ingresar")[0].reset();
-           location.href ="Inicio.php";
-         }
-       },
-       error: function(e)
-       {
-         $("#preview").html(e).fadeIn();
-       }
-     });
-   }));
-});
-  </script>
-<!--VENTADA MODAL DE CLIENTE-->
-  <div class="modal fade" id="FormModal" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                  <span aria-hidden="true">×</span>
-                  <span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Ingresar Cliente</h4>
+    <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+
+  <!--VENTADA MODAL DE CLIENTE-->
+  <div class="modal fade" id="modalFormCli" tabindex="-1" aria-labelledby="FormModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ingresar cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form class="form" role="form">
+            <p>Nombre Cliente</p>
+            <input type="text" class="form-control" id="nomCliente" name="nomCliente" required/>
+        </form>
+        </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn  btn-danger" onclick="submitCliente()">Guardar</button>
           </div>
-           <div class="modal-body">
-              <p class="statusMsg"></p>
-              <form role="form">
-                <div class="form-group">
-                    <span for="cliente">Cliente</span>
-                    <input type="text" class="form-control" id="nomCliente" name="nomCliente"/>
-                </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                      <button type="button" class="btn btn-primary submitBtn" onclick="submitCliente()">Guardar</button>
-                  </div>
-              </form>
-           </div>
+        </div>
+    </div>
+  </div>
+<!--VENTADA MODAL DE SOLICITUD-->
+<div class="modal fade" id="modalFormSol" tabindex="-1" aria-labelledby="FormModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ingresar Solicitud</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="form" role="form">
+          <p>Nueva Solicitud</p>
+          <input type="text" class="form-control" id="nomSolicitud" name="nomSolicitud" required/>
+      </form>
+      </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn  btn-danger" onclick="submitSolicitud()">Guardar</button>
         </div>
       </div>
   </div>
-  <script>
+</div>
+<!--VENTADA MODAL DE ESTADO-->
+<div class="modal fade" id="modalFormEst" tabindex="-1" aria-labelledby="FormModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ingresar Estado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="form" role="form">
+          <p>Nuevo Estado</p>
+          <input type="text" class="form-control" id="nomSolicitud" name="nomSolicitud" required/>
+      </form>
+      </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn  btn-danger" onclick="submitEstado()">Guardar</button>
+        </div>
+      </div>
+  </div>
+</div>
+<!---Script--->
+      <script>
+      //registro de guia de despacho
+      $(document).ready(function (e) {
+         $("#ingresar").on('submit',(function(e) {
+           e.preventDefault();
+           $.ajax({
+            url: "../logica/registrarguia.php",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend : function()
+            {
+              $("#preview").fadeOut();
+            },
+            success: function(data)
+            {
+              if(data =='invalid')
+              {
+                $("#preview").html("Formato de archivo invalido").fadeIn(); // formato de archivo invalido
+              }
+              else if (data == 'error') {
+                 $("#preview").html("Error en los datos ingresados").fadeIn(); // formato de archivo invalido
+              }
+              else
+              {
+                alert(data);
+                $("#ingresar")[0].reset();
+                location.href ="Inicio.php";
+              }
+            },
+            error: function(e)
+            {
+              $("#preview").html(e).fadeIn();
+            }
+          });
+        }));
+      });
+      /*---------------INCREGAR UN NUEVO CLIENTE---------------*/
       function submitCliente(){
         var nomCliente = $('#nomCliente').val();
-
         if(nomCliente.trim() == ''){
-          alert('Campo Vacio.');
+          $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
           $('#nomCliente').focus();
         }
         else {
@@ -213,144 +226,145 @@ $fechaActual = date('Y-m-d');
             data:'&nomCliente='+nomCliente,
             beforeSend: function () {
               $('.submitBtn').attr("disabled","disabled");
-            //  $('.modal-body').css('opacity', '.5');
+              $('.modal-body').css('opacity', '.5');
             },
             success:function(data){
               if(data == 'ok'){
-                alert('Ingresado Correctamente');
-                //cerrar
+                $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
+                load();
+                refresh('#modalFormCli');
               }
               else{
-                $('.statusMsg').html('<span style="color:green;">Error al ingresar los datos.</p>');
-
+                $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
+                refresh('#modalFormCli');
               }
             }
           });
+          refresh('#modalFormCli');
         }
-        //alert('hola');
+           }
+      /*---------------REFRESCAR LOS SELECT (CLIENTE, SOLICITUD Y ESTADO)---------------*/
+      function refresh(modal){
+          $(modal).on('hidden.bs.modal', function (e) {
+            var modal = $(this)
+              modal.find('.statusMsg').text('');
+              modal.find('input').val('');
+              modal.find('input').val('');
+              $('.submitBtn').removeAttr("disabled");
+              $('.modal-body').css('opacity', '');¿
+          });
       }
-  </script>
-  <!--VENTADA MODAL DE SOLICITUD-->
-    <div class="modal fade" id="FormModalSol" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Ingresar Solicitud</h4>
-            </div>
-             <div class="modal-body">
-                <p class="statusMsg"></p>
-                <form role="form">
-                  <div class="form-group">
-                      <span for="solicitd">Solicitud</span>
-                      <input type="text" class="form-control" id="nomsolid" name="nomsolid"/>
-                      <p class="error"></p>
-                  </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary submitBtn" onclick="submitSolicitd()">Guardar</button>
-                    </div>
-                </form>
-             </div>
-          </div>
-        </div>
-    </div>
-    <script>
-        function submitSolicitd(){
-          var nomsolid = $('#nomsolid').val();
-
-          if(nomsolid.trim() == ''){
-            $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
-            $('#nomsolid').focus();
-          }
-          else {
-             $.ajax({
-               type:'POST',
-               url:'../logica/InsertSolicitud.php',
-               data:'&nomsolid='+nomsolid,
-               beforeSend: function () {
-                   $('.submitBtn').attr("disabled","disabled");
-                   //$('.modal-body').css('opacity', '.5');
-               },
-               success:function(data){
-                  if(data == 'ok'){
-                    alert('Ingresado Correctamente');
-                  }
-
-                  else {
-                    alert(data);
-                    $('.statusMsg').html('<p style="color:red;">Error al ingresar los datos.</p>');
-                  }
-               }
-             });
-          }
-        }
-    </script>
-
-    <!--VENTADA MODAL DE SOLICITUD-->
-      <div class="modal fade" id="FormModalEst" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">
-                      <span aria-hidden="true">×</span>
-                      <span class="sr-only">Close</span>
-                  </button>
-                  <h4 class="modal-title" id="myModalLabel">Ingresar Estado</h4>
-              </div>
-               <div class="modal-body">
-                  <p class="statusMsg"></p>
-                  <form role="form">
-                    <div class="form-group">
-                        <span for="solicitd">Estado</span>
-                        <input type="text" class="form-control" id="nomEst" name="nomEst"/>
-                        <p class="error"></p>
-                    </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-primary submitBtn" onclick="submitEstado()">Guardar</button>
-                      </div>
-                  </form>
-               </div>
-            </div>
-          </div>
-      </div>
-      <script>
-          function submitEstado(){
-            var nomEst = $('#nomEst').val();
-
-            if(nomEst.trim() == ''){
-              $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
-              $('#nomEst').focus();
+      /*----------ELIMINAR LA LISTA DE CLIENTES DE EL SELECT---------------*/
+      function EliminarCliente(){
+         var cliente = $("#cliente");
+         $('option').each(function() {
+            if ( cliente.val() != '' ) {
+              cliente.find('option').remove();
             }
-            else {
+         });
+        }
+       /*---------------CARGAR DATOS CLIENTE---------------*/
+      function load(){
+          EliminarCliente();
+             $.post("get_Cliente.php", function(data){
+               $("#cliente").html(data);
+            });
+      }
+      /*---------------INCREGAR UN NUEVA SOLICITUD---------------*/
+      function submitSolicitud(){
+             var nomSolicitud = $('#nomSolicitud').val();
+             if(nomSolicitud.trim() == ''){
+               $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
+               $('#nomSolicitud').focus();
+             }
+             else {
                $.ajax({
                  type:'POST',
-                 url:'../logica/InsertEstado.php',
-                 data:'&nomEst='+nomEst,
+                 url:'../logica/InsertSolicitud.php',
+                 data:'&nomSolicitud='+nomSolicitud,
                  beforeSend: function () {
-                     $('.submitBtn').attr("disabled","disabled");
-                     //$('.modal-body').css('opacity', '.5');
+                   $('.submitBtn').attr("disabled","disabled");
+                   $('.modal-body').css('opacity', '.5');
                  },
                  success:function(data){
-                    if(data == 'ok'){
-                      alert('Ingresado Correctamente');
-                      //$('FormModalEst').closeModal();
-                    }
-
-                    else {
-                      alert(data);
-                      $('.statusMsg').html('<p style="color:red;">Error al ingresar los datos.</p>');
-                    }
+                   if(data == 'ok'){
+                     $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
+                     loadSol();
+                     refresh('#modalFormSol');
+                   }
+                   else{
+                     $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
+                     refresh('#modalFormSol');
+                   }
                  }
                });
-            }
-          }
+               refresh('#modalFormSol');
+             }
+           }
+           /*----------ELIMINAR LA LISTA DE CLIENTES DE EL SELECT---------------*/
+           function EliminarSolicitud(){
+              var solicitud = $("#solicitud");
+              $('option').each(function() {
+                 if ( solicitud.val() != '' ) {
+                   solicitud.find('option').remove();
+                 }
+              });
+             }
+           /*---------------CARGAR DATOS SOLICITUD---------------*/
+           function loadSol(){
+               EliminarSolicitud();
+                  $.post("get_Solicitud.php", function(data){
+                    $("#solicitud").html(data);
+                 });
+           }
+           /*---------------INCREGAR UN NUEVA SOLICITUD---------------*/
+           function submitEstado(){
+                  var nomEstado = $('#nomEstado').val();
+                  if(nomEstado.trim() == ''){
+                    $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
+                    $('#nomEstado').focus();
+                  }
+                  else {
+                    $.ajax({
+                      type:'POST',
+                      url:'../logica/InsertEstado.php',
+                      data:'&nomEstado='+nomEstado,
+                      beforeSend: function () {
+                        $('.submitBtn').attr("disabled","disabled");
+                        $('.modal-body').css('opacity', '.5');
+                      },
+                      success:function(data){
+                        if(data == 'ok'){
+                          $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
+                          loadEst();
+                          refresh('#modalFormEst');
+                        }
+                        else{
+                          $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
+                          refresh('#modalFormEst');
+                        }
+                      }
+                    });
+                    refresh('#modalFormEst');
+                  }
+                }
+                /*----------ELIMINAR LA LISTA DE CLIENTES DE EL SELECT---------------*/
+                function EliminarEstado(){
+                   var Estado = $("#estado");
+                   $('option').each(function() {
+                      if ( Estado.val() != '' ) {
+                        Estado.find('option').remove();
+                      }
+                   });
+                  }
+                /*---------------CARGAR DATOS SOLICITUD---------------*/
+                function loadEst(){
+                    EliminarEstado();
+                       $.post("get_Estado.php", function(data){
+                         $("#estado").html(data);
+                      });
+                }
       </script>
-
-      <!--refrescar los select rellenados desde la base de datos-->
+      <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

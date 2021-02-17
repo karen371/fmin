@@ -1,8 +1,6 @@
 <?php
-/*FALTA EL ENCARGADO EL CUAL SE PUEDE SACAR DIRECTAMENTE DE EL SESSION[]*/
 session_start();
 require_once("../Datos/Connection.php");
-require_once('../Datos/Conexion.php');
 require_once("../Controller/ControladorCliente.php");
 require_once("../Controller/ControladorSolicitud.php");
 require_once("../Controller/ControladorEstado.php");
@@ -10,12 +8,11 @@ require_once('../Modelo/Busqueda.php');
 require_once('../Modelo/GuiaSalida.php');
 require_once('../Modelo/GuiaEntrada.php');
 require_once('../Modelo/descripcion.php');
-$fechaActual = date('Y-m-d');
-
 $busqueda = new Busqueda();
 $des      = new descripcion_model();
 $guiaS    = new GuiaSalida();
 $guiaE    = new GuiaEntrada();
+$fechaActual = date('Y-m-d');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -28,8 +25,9 @@ $guiaE    = new GuiaEntrada();
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Styleform.css">
+  <!--  <link rel="stylesheet" href="../css/Styleform.css">-->
     <link rel="stylesheet" href="../css/StyleMenu.css">
+    <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <title>Registrar</title>
   </head>
   <body>
@@ -44,8 +42,9 @@ $guiaE    = new GuiaEntrada();
             $folio     = $fol ['codFolio'];    $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];
             $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
             $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
-            $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];
-            $docEnt    = $guiaE->NombreDocumento($numero);  $docSal = $guiaS->NombreDocumento($numS);
+            $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];        $Estado    = $fol ['estado'];
+            $docEnt    = $guiaE->NombreDocumento($numero);
+            $docSal = $guiaS->NombreDocumento($numS);
             /*Falta la informacion de la guia de salida*/
             $texto = substr($detalle, 0, 10);
             $palabras = explode(' ', $texto);
@@ -59,10 +58,11 @@ $guiaE    = new GuiaEntrada();
         else{
           $BuscarFol = $busqueda->get_BusquedaFolio($x);
           foreach ($BuscarFol as $fol){
-            $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];
-            $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
-            $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
-            $numS      = '';                   $nfecha    = ''; $docEnt='';  $docSal='';
+            $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];         $Estado    = $fol ['estado'];
+            $detalle   = $fol ['descripcion'];  $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
+            $solicitud = $fol ['nombre'];       $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
+            $numS      = '';                    $nfecha    = '';                    $docEnt    = '';
+            $docSal    = '';
             /*Falta la informacion de la guia de salida*/
             $texto = substr($detalle, 0, 10);
             $palabras = explode(' ', $texto);
@@ -74,132 +74,152 @@ $guiaE    = new GuiaEntrada();
           }
         }
       ?>
-
-    <div class="contenedor">
+    <div class="container">
+      <div class="col-9">
+        <div class="col-5">
+          <h2 class="my-2 display-7">Modificar datos</h2>
+        </div>
       <form  id="ingresar" class="form" enctype="multipart/form-data" action="../logica/Modificar.php">
-          <table>
-            <tr>
-              <th colspan="2"><h1 class="titulos">Modificar</h1></th>
-              <br>
-            </tr>
-            <tr>
-              <td colspan="2"><h3 class="titulos">Datos de Ingreso</h3></td>
-              <td></td>
-            </tr>
-            <tr>
-              <!--pasar a la pagina modificar si cambiar el dato -->
-              <td><label> Numero de SC </label></td>
-              <td><input  class="input" id="folio" name="folio" value="<?php echo $x ?>" ></td>
-            </tr>
-            <tr>
-              <td><label> Encargado </label></td>
-              <td><input class="input" disabled="disabled" value="<?php echo $nombreen.' '.$apellido ?>"></td>
-            </tr>
-            <tr>
-              <td><label> N° Guia </label></td>
-              <td class="td"><input  class="input" type="text" id="numero" name="numero" value=" <?php echo $numero ?> "></td>
-            </tr>
-            <tr>
-              <td><label> Código Solped </label></td>
-              <td><input style="text-transform:uppercase"  class="input" type="text" id="codigo" name="codigo" value="<?php echo $codigo ?>"></td>
-            </tr>
-            <tr>
-              <td><label> Fecha Ingreso </label></td>
-              <td><input class="input" type="date"  id="fecha" name="fecha" value="<?php echo $fecha1 ?>"></td>
-            </tr>
-            <tr>
-              <td><label>Cliente</label></td>
-              <td>
-                <!--Imprimir desde la base de datos-->
-                <select id="cliente" name="cliente">
-                  <?php
-                    foreach ($datos as  $dato) {
-                      if(strcasecmp($dato['nomcliente'], $cliente) == 0){
-                        ?> <option id="<?php $dato['nomcliente'] ?>" selected><?php echo $dato['nomcliente'] ?></option>?> <?php
+          <div class="col-5">
+            <h3 class=" my-2 display-7 ">Datos de Ingreso</h2>
+          </div>
+          <div class="row mb-4">
+            <label for="folio" class="col-sm-3 col-form-label">Numero de SC</label>
+            <div class="col-sm-8">
+              <input  class="form-control" type="text" id="folio" name="folio" value="<?php echo $x ?>" readonly>
+            </div>
+          </div>
+          <div class="row mb-4">
+             <label for="encargado" class="col-sm-3 col-form-label"> Encargado</label>
+             <div class="col-sm-8">
+                 <input class="form-control" value="<?php echo $nombreen.' '.$apellido ?>" readonly>
+             </div>
+          </div>
+          <div class="row mb-4">
+             <label for="numero" class="col-sm-3 col-form-label"> N°Guia</label>
+             <div class="col-sm-8">
+                 <input class="form-control" type="text" id="numero" name="numero" value=" <?php echo $numero ?> " >
+             </div>
+          </div>
+          <div class="row mb-4">
+             <label for="codigo" class="col-sm-3 col-form-label">Codigo Solped</label>
+             <div class="col-sm-8">
+                 <input style="text-transform:uppercase" class="form-control" type="text" id="codigo" name="codigo" value="<?php echo $codigo ?>" >
+             </div>
+          </div>
+          <div class="row mb-4">
+             <label for="fecha" class="col-sm-3 col-form-label">Fecha Ingreso</label>
+             <div class="col-sm-8">
+                 <input  class="form-control" type="date" id="fecha" name="fecha" value="<?php echo $fecha1 ?>">
+             </div>
+          </div>
+          <div class="row mb-4">
+             <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
+             <div class="col-sm-8">
+               <select class="form-select" id="cliente" name="cliente">
+                   <option value="inicio">Seleccione una Opcion</option>
+                   <?php
+                     foreach ($datos as  $dato) {
+                       if(strcasecmp($dato['nomcliente'], $cliente) == 0){
+                         ?> <option id="<?php $dato['nomcliente'] ?>" selected><?php echo $dato['nomcliente'] ?></option>?> <?php
+                       }
+                       else{
+                         ?> <option id="<?php $dato['nomcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
+                       }
+                     } ?>
+                </select>
+             </div>
+           </div>
+           <div class="row mb-4">
+              <label for="solicitud" class="col-sm-3 col-form-label">Solicitud</label>
+              <div class="col-sm-8">
+                <select class="form-select" id="solicitud" name="solicitud">
+                    <option value="inicio">Seleccione una Opcion</option>
+                    <?php
+                    foreach ($data as  $s) {
+                      if(strcasecmp($s['nombre'] , $solicitud) == 0){
+                        ?><option id="<?php $s['codigo'] ?>" selected><?php echo $s['nombre'] ?></option>?> <?php
                       }
                       else{
-                        ?> <option id="<?php $dato['nomcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
+                        ?><option id="<?php $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
                       }
-                    } ?>
-                </select>
-            </tr>
-            <tr>
-              <td><label>Tipo Solicitud</label></td>
-              <td>
-                <select id="solicitud" name="solicitud">
-                  <?php
-                  foreach ($data as  $s) {
-                    if(strcasecmp($s['nombre'] , $solicitud) == 0){
-                      ?><option id="<?php $s['codigo'] ?>" selected><?php echo $s['nombre'] ?></option>?> <?php
-                    }
-                    else{
-                      ?><option id="<?php $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
-                    }
-               } ?>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><label>Estado</label></td>
-              <td>
-                <select id="estado" name="estado">
-                  <?php
-                    foreach ($state as $estado) {
-                      ?> <option id="<?php $estado['nombre'] ?>"><?php echo $estado['nombre'] ?></option> }<?php
-                    }
-                   ?>
-                </select>
-              </td>
-            </tr>
-            <tr >
-              <td><label>Detalle</label></td>
-              <td  rowspan="2"><textarea class="textarea" type="text" id="detalle" name="detalle"  maxlength="1000 "  cols="40" rows="5"><?php echo $detalle ?></textarea></td>
-            </tr>
-            <tr>
-              <th></th>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label>Documento actual</label></td>
-              <td> <?php echo  $docEnt ?> </td>
-            </tr>
-            <tr>
-              <td><label>Subir Documento</label></td>
-              <td>
-                <input id="" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng" />
-              </td>
-            </tr>
+                 } ?>
+                 </select>
+              </div>
+            </div>
+            <div class="row mb-4">
+               <label for="estado" class="col-sm-3 col-form-label">Estado</label>
+               <div class="col-sm-8">
+                 <select class="form-select" id="estado" name="estado">
+                     <option value="inicio">Seleccione una Opcion</option>
+                     <?php
+                       foreach ($state as $estado) {
+                         if(strcasecmp($estado['nombre'] , $Estado) == 0){
+                           ?><option id="<?php $estado['codigo'] ?>" selected><?php echo $estado['nombre'] ?></option>?> <?php
+                         }
+                         else{
+                           ?><option id="<?php $estado['codigo']?>"><?php echo $estado['nombre'] ?></option><?php
+                         }
+                       }
+                      ?>
+                  </select>
+               </div>
+             </div>
+             <div class="row mb-4">
+                <label for="detalle" class="col-sm-3 col-form-label">Detalle</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" type="text" id="detalle" name="detalle"  maxlength="1000 "  cols="40" rows="5"><?php echo $detalle ?></textarea>
+                </div>
+             </div>
+             <div class="row mb-4">
+               <label for="documentoA" class="col-sm-3 col-form-label">Documento Actual</label>
+               <div class="col-sm-8">
+                 <p><?php echo  $docEnt ?></p>
+               </div>
+             </div>
+             <div class="row mb-4">
+                <label for="documento" class="col-sm-3 col-form-label">Subir Documento</label>
+                <div class="col-sm-8">
+                    <input class="form-control-file" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng">
+                    <div id="error" style="color:red"></div><br>
+                </div>
+             </div>
             <!------------------------------------------------------------------------------>
-            <tr>
-              <td colspan="2"><h3 class="titulos" colspan="2">Datos de Egreso</h3></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label> Fecha Entrega (Salida) </label></td>
-              <td><input class="input" type="date"  id="fechasal" name="fechasal" value="<?php echo $fecha2 ?>"></td>
-            </tr>
-            <tr>
-              <td><label> Numero de Guia </label></td>
-              <td><input class="input" type="text" id="numsal" name="numsal" value="<?php echo $numS ; ?>"></td>
-            </tr>
-            <tr>
-              <td> <label>Documento</label></td>
-              <td><?php echo $docSal ?></td>
-            </tr>
-            <tr>
-              <td><label>Subir Documento</label></td>
-              <td>
-                <input id="uploadImage" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
-                <div id="error" style="color:red"></div><br>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2"><button class="button" type="submit">Guardar</button></td>
-              <td></td>
-            </tr>
-         </table>
+            <div class="col-5">
+              <h3 class=" my-2 display-7 ">Datos de Egreso</h2>
+            </div>
+            <div class="row mb-4">
+               <label for="fechasal" class="col-sm-3 col-form-label">Fecha Salida</label>
+               <div class="col-sm-8">
+                   <input class="form-control" type="date"  id="fechasal" name="fechasal" value="<?php echo $fecha2 ?>">
+               </div>
+            </div>
+            <div class="row mb-4">
+               <label for="numsal" class="col-sm-3 col-form-label">Numero de Guia</label>
+               <div class="col-sm-8">
+                   <input class="form-control" type="text" id="numsal" name="numsal" value="<?php echo $numS ; ?>">
+               </div>
+            </div>
+            <div class="row mb-4">
+               <label for="doc" class="col-sm-3 col-form-label">Documento Actual</label>
+               <div class="col-sm-8">
+                   <p><?php echo $docSal ?></p>
+               </div>
+            </div>
+            <div class="row mb-4">
+               <label for="documento" class="col-sm-3 col-form-label">Subir Documento</label>
+               <div class="col-sm-8">
+                   <input id="uploaddoc" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng">
+                   <div id="error" style="color:red"></div>
+               </div>
+            </div>
+            <div class="d-grid gap-3" >
+                <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
+            </div>
       </form>
     </div>
+  </div
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
   $(document).ready(function (e) {
@@ -241,5 +261,6 @@ $guiaE    = new GuiaEntrada();
    }));
   });
   </script>
+  <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

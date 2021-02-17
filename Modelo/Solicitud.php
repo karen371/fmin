@@ -9,6 +9,7 @@ class solicitud_model{
         $this->cliente=array();
     }
     public function get_solicitud(){
+
         $consulta=$this->db->query('SELECT codigo, UCASE(nombre) AS nombre FROM tiposolicitud  ORDER BY nombre ASC');
         while($filas=$consulta->fetch_assoc()){
             $this->cliente[]=$filas;
@@ -24,13 +25,15 @@ class solicitud_model{
       }
       return $this->cod;
     }
+
     public function Insert($nombre){
-      if($this->db->query('INSERT INTO tiposolicitud(nombre) VALUES ("'.$nombre.'")')){
-          return true;
-      }
-      else{
-          return false;
-      }
+
+        if($this->db->query('INSERT INTO tiposolicitud(nombre) VALUES ("'.$nombre.'")')){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
 

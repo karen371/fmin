@@ -7,9 +7,8 @@ $des = new descripcion_model();
 ?>
     <h2></h2>
     <div class="ContenedorTabla">
-
-        <table class="rwd-table">
-        <thead>
+        <table class="table ">
+        <thead class="table-danger">
         <tr>
           <th>SC</th>
           <th>N° Guia</th>
@@ -45,22 +44,22 @@ $des = new descripcion_model();
       <tr>
         <td><?php echo $folio;                ?></td>
         <td><?php echo $numero;               ?></td>
-        <td style="text-transform:uppercase"><?php echo $codigo;               ?></td>
+        <td style="text-transform:uppercase"><?php echo $codigo;?></td>
         <td><?php echo $nombreen.' '.$apellido?></td>
         <td><?php echo $solicitud;            ?></td>
         <td><?php echo $cliente;              ?></td>
         <td><?php echo $fecha ;                ?></td>
         <td><?php echo $resultado;            ?></td>
         <td>
-           <a href="detalle.php?codigo=<?php echo $folio?>">Ver más</a>
+           <a href="detalle.php?codigo=<?php echo $folio?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Ver más</a>
         </td>
        </tr>
        <?php
      }
      ?>
      <tr>
-       <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td> <a href="Tablacompleta.php">Ver tabla completa</a></td>
+       <td><a class="btn btn-secondary btn-lg active btn-primary" role="button" aria-pressed="true" href="Tablacompleta.php">Ver tabla completa</a></button></td>
      </tr>
      </tbody>
     </table>
-    </div>
+  </div>

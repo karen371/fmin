@@ -4,10 +4,10 @@ require_once('../Modelo/Solicitud.php');
 
 $solicitud = new solicitud_model();
 
-if($_POST['nomsolid'] != ''){
-  if($solicitud->Insert($_POST['nomsolid'])){
-    /*FALTA REFRESCAR EL SELECT*/
-      echo 'ok';
+if($_POST['nomSolicitud'] != ''){
+
+  if($solicitud->Insert($_POST['nomSolicitud'])){
+    echo 'ok';
   }
   else {echo 'error'; }
 }

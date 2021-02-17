@@ -5,9 +5,10 @@ session_start();
 <html>
     <head>
       <meta charset="UTF-8">
-    	<title></title>
-    	      <link rel="stylesheet" href="../css/StyleMenu.css">
-      <link rel="stylesheet" href="../css/StyleTablas.css">
+    	<title>Inicio</title>
+      <link rel="stylesheet" href="../css/StyleMenu.css">
+    	<!--<link rel="stylesheet" href="../css/StyleTablas.css">-->
+      <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/CSS/bootstrap.min.css">
     </head>
 <body>
 	 <head class="head">
@@ -17,5 +18,6 @@ session_start();
       <div class="Separacion"></div>
       <?php include('Tabla.php'); ?>
   </body>
+  <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

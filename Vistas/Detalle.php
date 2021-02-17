@@ -97,6 +97,9 @@ $guia      = new GuiaSalida();
      <td ><label><?php echo $detalle ?> </label></td>
    </tr>
    <tr>
+     <td> <label for=""> Fotos con descripcion</label> </td>
+   </tr>
+   <tr>
      <th><label>Guia de despacho</label></th>
      <td><label><?php echo $guiaEntra->NombreDocumento($numero) ?></label></td>
      <td><label>
@@ -123,12 +126,14 @@ $guia      = new GuiaSalida();
      <td><label><?php echo $nombreDoc; ?></label></td>
      <td><label><?php echo $documento ?></label></td>
    </tr>
+   <tr>
+     <td> <label for=""> Fotos con descripcion</label> </td>
+   </tr>
  </table>
 </div>
   </body>
   <footer>
     <br><br><br>
-
   </footer>
 </html>
 <!--ARREGLAR LOS BOTONES DE DESCARGAS PONERLOS PRESENTABLES-->

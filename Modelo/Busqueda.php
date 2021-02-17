@@ -26,27 +26,30 @@ class Busqueda{
     }
     /*MUESTRA DE EL NUMERO DE GUIA Y FECHA (EGRESO) POR FOLIO*/
     public function BuscarDetalle($num){
-      $consulta = $this->db->query('CALL descripcion ("'.$num.'");');
-      if($fila = $consulta->fetch_assoc()){
-          $this->Tabla[] = $fila;
-      }
-      return $this->Tabla;
+        $consulta = $this->db->query('CALL descripcion ("'.$num.'");');
+        if($fila = $consulta->fetch_assoc()){
+            $this->Tabla[] = $fila;
+        }
+        return $this->Tabla;
     }
     /*BUSCAR SI EXISTE */
     public function ExisteFolio($num){
-      $consulta = $this->db->query('SELECT * FROM descripcionOT WHERE codFolio = "'.$num.'"');
-      if($filas = $consulta->fetch_assoc()){
-          return true;
-      }
-      return false;
+        $consulta = $this->db->query('SELECT * FROM descripcionOT WHERE codFolio = "'.$num.'"');
+        if($filas = $consulta->fetch_assoc()){
+            return true;
+        }else{
+          return false;
+        }
     }
     /*VER LA GUIA QUES SE ESTA BUSCANDO */
     public function ExisteGuia ($num){
-      $consulta = $this->db->query('SELECT * FROM GdespachoC WHERE codnumero = "'.$num.'"');
-      if($filas = $consulta->fetch_assoc()){
-          return true;
-      }
-      return false;
+        $consulta = $this->db->query('SELECT * FROM GdespachoC WHERE codnumero = "'.$num.'"');
+        if($filas = $consulta->fetch_assoc()){
+            return true;
+        }
+        else{
+          return false;
+        }
     }
 }
 ?>

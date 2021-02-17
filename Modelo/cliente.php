@@ -17,6 +17,7 @@ class cliente_model{
         }
         return $this->cliente;
     }
+
     /*DEVOLVER EL CODIGO DE UN CLIENTE EN ESPECIFICO*/
     public function  get_codigo($CLIENTE){
       $consulta = $this->db->query('SELECT * FROM cliente WHERE nomcliente= "'.$CLIENTE.'"');
@@ -25,6 +26,7 @@ class cliente_model{
       }
       return $this->cod;
     }
+    /*INGRESAR UN NUEVO CLIENTE*/
     public function Insert($nombre){
       if($this->db->query('INSERT INTO  cliente (nomcliente) VALUES ("'.$nombre.'")')){
           return true;
