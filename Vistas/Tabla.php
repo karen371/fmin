@@ -6,21 +6,22 @@ require_once("../Modelo/descripcion.php");
 $des = new descripcion_model();
 ?>
     <h2></h2>
-    <div class="ContenedorTabla">
-        <table class="table ">
+    <div class="container">
+        <table class="table table-hover">
         <thead class="table-danger">
         <tr>
           <th>SC</th>
           <th>N° Guia</th>
-          <th>Codigo Solped</th>
-          <th>Encargado Ingreso</th>
-          <th>Tipo Solicitud</th>
-          <th>Cliente</th>
           <th>Fecha Ingreso</th>
-          <th>Detalle</th>
+      <!--    <th>Codigo Solped</th>-->
+          <th>Encargado Ingreso</th>
+          <th>Cliente</th>
+          <th>Tipo Solicitud</th>
+          <th>Estado</th>
+        <!--  <th>Detalle</th>-->
           <th></th>
         </tr>
-        </thead>
+      </thead>
         <tbody>
     <?php
     $datos = $des->get_descripcionTodo();
@@ -35,6 +36,7 @@ $des = new descripcion_model();
       $solicitud = $dato['nombre'];
       $nombreen  = $dato['nomencargado'];
       $apellido  = $dato['apellido'];
+      $Estado    = $dato['estado'];
       /*LIMITE A MOSTRAR EN EL DETALLE*/
       $texto = substr($detalle, 0, 10);
       $palabras = explode(' ', $texto);
@@ -44,22 +46,31 @@ $des = new descripcion_model();
       <tr>
         <td><?php echo $folio;                ?></td>
         <td><?php echo $numero;               ?></td>
-        <td style="text-transform:uppercase"><?php echo $codigo;?></td>
-        <td><?php echo $nombreen.' '.$apellido?></td>
-        <td><?php echo $solicitud;            ?></td>
-        <td><?php echo $cliente;              ?></td>
         <td><?php echo $fecha ;                ?></td>
-        <td><?php echo $resultado;            ?></td>
+      <!--  <td style="text-transform:uppercase"><?php echo $codigo;?></td>-->
+        <td><?php echo $nombreen.' '.$apellido?></td>
+        <td><?php echo $cliente;              ?></td>
+        <td><?php echo $solicitud;            ?></td>
+        <td><?php echo $Estado                ?></td>
+
+      <!--  <td><?php echo $resultado;            ?></td>-->
         <td>
-           <a href="detalle.php?codigo=<?php echo $folio?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Ver más</a>
-        </td>
+           <a href="detalle.php?codigo=<?php echo $folio?>" class="btn btn-danger btn-sm " role="button" aria-pressed="true">Ver</a>
+        </td
        </tr>
        <?php
      }
      ?>
-     <tr>
-       <td><a class="btn btn-secondary btn-lg active btn-primary" role="button" aria-pressed="true" href="Tablacompleta.php">Ver tabla completa</a></button></td>
-     </tr>
+     <tfoot>
+       <tr>
+         <td colspan="5">
+           <div class="d-grid gap-2 d-md-block">
+              <a class="btn btn-danger btn-block " role="button" aria-pressed="true" href="Tablacompleta.php">Ver tabla completa</a>
+            </div>
+         </td>
+         <td></td><td></td>
+       </tr>
+     </tfoot>
      </tbody>
     </table>
   </div>

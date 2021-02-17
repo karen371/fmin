@@ -165,7 +165,6 @@ INSERT INTO tiposolicitud (nombre) VALUES ('Proceso');
 INSERT INTO tiposolicitud (nombre) VALUES ('Aporte Mandante');
 INSERT INTO tiposolicitud (nombre) VALUES ('Modificacion');
 INSERT INTO tiposolicitud (nombre) VALUES ('Confeccion');
-
 INSERT INTO estado (nombre) VALUES ('Pendiente');
 INSERT INTO estado (nombre) VALUES ('En Ejecucion');
 INSERT INTO estado (nombre) VALUES ('Terminada');
@@ -180,9 +179,9 @@ WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t
 
 
 CREATE VIEW descripcionTodo AS
-SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido
-FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab
-WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab ORDER BY D.codFolio;
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido, est.nombre AS estado
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab, estado AS est
+WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND   d.Estado = est.codigo  ORDER BY D.codFolio;
 
 
 DELIMITER $$

@@ -12,7 +12,7 @@ $des = new descripcion_model();
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/StyleMenu.css">
-    <link rel="stylesheet" href="../css/StyleTablas.css">
+    <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/CSS/bootstrap.min.css">
     <title></title>
   </head>
   <body>
@@ -20,19 +20,19 @@ $des = new descripcion_model();
         <?php  include('menu.php');?>
     </header>
         <h2></h2>
-        <div class="ContenedorTabla">
+        <div class="container">
 
-            <table class="rwd-table">
-            <thead>
+            <table class="table table-hover">
+            <thead class="table-danger">
             <tr>
               <th>SC</th>
               <th>N° Guia</th>
               <th>Codigo Solped</th>
-              <th>Encargado Ingreso</th>
-              <th>Tipo Solicitud</th>
-              <th>Cliente</th>
               <th>Fecha Ingreso</th>
-              <th>Detalle</th>
+              <th>Encargado Ingreso</th>
+              <th>Cliente</th>
+              <th>Tipo Solicitud</th>
+              <th>Estado</th>
               <th></th>
             </tr>
             </thead>
@@ -50,6 +50,7 @@ $des = new descripcion_model();
           $solicitud = $dato['nombre'];
           $nombreen  = $dato['nomencargado'];
           $apellido  = $dato['apellido'];
+          $Estado    = $dato['estado'];
           /*LIMITE A MOSTRAR EN EL DETALLE*/
           $texto = substr($detalle, 0, 10);
           $palabras = explode(' ', $texto);
@@ -60,21 +61,22 @@ $des = new descripcion_model();
             <td><?php echo $folio;                ?></td>
             <td><?php echo $numero;               ?></td>
             <td style="text-transform:uppercase"><?php echo $codigo;               ?></td>
-            <td><?php echo $nombreen.' '.$apellido?></td>
-            <td><?php echo $solicitud;            ?></td>
-            <td><?php echo $cliente;              ?></td>
             <td><?php echo $fecha ;                ?></td>
-            <td><?php echo $resultado;            ?></td>
+            <td><?php echo $nombreen.' '.$apellido?></td>
+            <td><?php echo $cliente;              ?></td>
+            <td><?php echo $solicitud;            ?></td>
+            <td><?php echo $Estado;                ?></td>
             <td>
-               <a href="detalle.php?codigo=<?php echo $folio?>">Ver más</a>
+               <a href="detalle.php?codigo=<?php echo $folio?>" class="btn btn-danger btn-sm " role="button" aria-pressed="true">Ver</a>
             </td>
            </tr>
            <?php
          }
          ?>
          </tbody>
+         <footer></footer>
         </table>
         </div>
-
+        <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

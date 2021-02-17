@@ -20,7 +20,7 @@ $path = '../Archivos/';
 /*verificar campos vacios*/
 
 if($_POST['cliente'] == 'inicio' || $_POST['solicitud'] == 'inicio' || $_POST['estado'] == 'inicio'){
-  echo 'error';
+  $jsondata['mensaje'] = "error";
 }
 else {
   if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']) || !empty($_POST['detalle']) ||
@@ -54,23 +54,20 @@ else {
                  if($des->Insert($MaxGuia, $Estado) == true){
                    /*SACAL EL NUMERO MAXIMO DE LA DESCRIPCION*/
                    $MaxFolio = $des->get_codMaximo();
-                   echo  'Se han ingresado los datos con exito, el  codigo SC es: '.$MaxFolio;
+                   $jsondata['mensaje'] = 'Se han ingresado los datos con exito, el  codigo SC es: '.$MaxFolio;
                  }
-                 else{echo 'error';}
+                 else{$jsondata['mensaje'] = "error"; ;}
                }
-               else{ echo 'error';}
+               else{ e$jsondata['mensaje'] = "error";}
            }
          }
-         else {echo 'invalid';}
+         else {$jsondata['mensaje'] = 'invalid';}
     }
-    else{echo 'error';}
+    else{$jsondata['mensaje'] = "error"; ;}
 
-    }
+}
 
-
-
-
-
-
+header("Content-Type: application/json", true);
+ echo json_encode($jsondata);
 
 ?>

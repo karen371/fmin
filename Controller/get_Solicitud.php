@@ -6,7 +6,7 @@
 
 	$db = Conectar::conexion();
 	  $consulta=$db->query('SELECT codigo, UCASE(nombre) AS nombre FROM tiposolicitud  ORDER BY nombre ASC;');
-		$html = "<option>Seleccione una Opcion</option>";
+		$html = "<option value='inicio'>Seleccione una Opcion</option>";
 
 		  while($filas=$consulta->fetch_assoc())
 		{

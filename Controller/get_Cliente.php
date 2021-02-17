@@ -6,8 +6,7 @@
 
 	$db = Conectar::conexion();
 	  $consulta=$db->query('SELECT codcliente, UCASE(nomcliente) AS nomcliente from cliente ORDER BY nomcliente ASC;');
-		$html = "<option>Seleccione una Opcion</option>";
-
+		$html = "<option value='inicio'>Seleccione una Opcion</option>";
 		  while($filas=$consulta->fetch_assoc())
 		{
 			$html.= "<option value='".$filas['codcliente']."'>".$filas['nomcliente']."</option>";

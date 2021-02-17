@@ -1,0 +1,112 @@
+<?php
+session_start();
+require_once '../Datos/Conexion.php';
+$con = new Conexion();
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
+   <link rel="stylesheet" href="../css/StyleMenu.css" type="text/css">
+    <title></title>
+  </head>
+  <body>
+    <?php
+    include('menu.php');
+    /*submenu con las opciones de imprimir y modificar*/
+
+    $x = ($_GET['codigo']);
+    $con->sql = $con->my->query('CALL busqueda ("'.$x.'")');
+    if($row=$con->sql->fetch_array(MYSQLI_ASSOC)){
+      $folio     =$row ['codFolio'];
+      $numero    = $row['codnumero'];
+      $codigo    = $row['codS'];
+      $detalle   = $row['descripcion'];
+      $fecha     = $row['fecha'];
+      $cliente   = $row['nomcliente'];
+      $solicitud = $row['nombre'];
+      $nombreen  = $row['nomencargado'];
+      $apellido  = $row['apellido'];
+      }
+     ?>
+     <div class="">
+        <nav>
+          <ul>
+            <li><a href="ModificarGuia.php?codigo=<?php echo $folio?>"><span class="icon-suitcase"></span>Modificar Guia</a></li>
+            <li><a href="Inicio.php"><span class="icon-suitcase"></span>Imprimir</a></li>
+          </ul>
+        </nav>
+     </div>
+    <div class="Separacion">
+        <h2>Detalle Ingreso</h2>
+    </div>
+    <div class="content">
+      <table>
+        <tr>
+          <th><label>SC</label></th>
+          <td><label><?php echo $folio;  ?></label></td>
+        </tr>
+        <tr>
+          <th><label>N° Guia</label></th>
+          <td><label><?php echo $numero; ?></label></td>
+        </tr>
+        <tr>
+          <th><label>Encargado Ingreso</label></th>
+          <td><label><?php echo $nombreen.' '.$apellido; ?></label></td>
+        </tr>
+        <tr>
+          <th><label>Fecha Ingreso</label></th>
+          <td><label><?php echo $fecha;  ?></label></td>
+        </tr>
+        <tr>
+          <th><label>Tipo Solicitud</label></th>
+          <td><label><?php echo $solicitud; ?></label></td>
+        </tr>
+        <tr>
+          <th><label>Cliente</label> </th>
+          <td><label><?php echo $cliente;?></label></td>
+        </tr>
+        <tr >
+          <th><label>Detalle</label></th>
+          <td ><label><?php echo $detalle ?> </label></td>
+        </tr>
+      </table>
+      <div class="Separar">
+          <h2>Detalle Egreso</h2>
+      </div>
+      <table>
+        <tr>
+          <th><label>Fecha de Egreso</label></th>
+          <td><label></label></td>
+        </tr>
+        <tr>
+          <th><label>N° de guia</label></th>
+          <td><label><?php echo $numero; ?></label></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+
+
+    public function get_busquedaGE($num){
+      //
+      $consulta = $this->db->query('CALL busqueda("'.$num.'");');
+      if($filas = $consulta->fetch_assoc()){
+          $this->Tabla[]=$filas;
+      }
+      return $this->Tabla;
+    }
+
+
+
+
+      $folio     = $fol ['codFolio'];    $numero    = $fol ['codnumero'];    $codigo    = $fol ['codS'];
+      $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
+      $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
+      /*Falta la informacion de la guia de salida*/
+      $texto = substr($detalle, 0, 10);
+      $palabras = explode(' ', $texto);
+      $resultado = implode(' ', $palabras);
+      $resultado .= '...';

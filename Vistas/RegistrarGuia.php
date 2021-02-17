@@ -18,6 +18,16 @@ $fechaActual = date('Y-m-d');
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <!-- Latest minified bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../css/StyleMenu.css">
 
     <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
 
@@ -53,8 +63,9 @@ $fechaActual = date('Y-m-d');
               <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
               <div class="col-sm-8">
               <select class="form-select" id="cliente" name="cliente">
+                <option value='inicio'>Seleccione una Opcion</option>
                  <?php foreach ($datos as $key => $dato) {?>
-                    <option id="<?php $dato['nomcliente']?>"><?php echo $dato['nomcliente']?></option>
+                    <option value="<?php echo  $dato['codcliente']?>"><?php echo $dato['nomcliente']?></option>
                  <?php }?>
               </select>
               </div>
@@ -64,8 +75,9 @@ $fechaActual = date('Y-m-d');
               <label for="solicitud" class="col-sm-3 col-form-label">Tipo Solicitud</label>
               <div class="col-sm-8">
                 <select class="form-select" id="solicitud" name="solicitud">
+                  <option value='inicio'>Seleccione una Opcion</option>
                   <?php foreach ($data as $key => $s) {?>
-                    <option id="<?php $s['nombre']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
+                    <option value="<?php echo $s['codigo']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
                 </select>
               </div>
               <div class="col-sm-1">
@@ -76,8 +88,9 @@ $fechaActual = date('Y-m-d');
               <label for="estado" class="col-sm-3 col-form-label">Estado</label>
               <div class="col-sm-8">
               <select class="form-select" id="estado" name="estado">
+                <option value='inicio'>Seleccione una Opcion</option>
                 <?php foreach ($state as $estado) {?>
-                    <option id="<?php $estado['nombre'] ?>"><?php echo $estado['nombre'] ?></option>
+                    <option value="<?php echo $estado['codigo'] ?>"><?php echo $estado['nombre'] ?></option>
                 <?php };?>
               </select>
               </div>
@@ -99,9 +112,10 @@ $fechaActual = date('Y-m-d');
               <input id="uploadImage" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
               </div>
             </div>
-            <div class="d-grid gap-3" >
+            <p id="error"></p>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
-            </div>
           </form>
         </div>
     </div>
@@ -187,16 +201,17 @@ $fechaActual = date('Y-m-d');
             processData:false,
             beforeSend : function()
             {
-              $("#preview").fadeOut();
+              $("#error").fadeOut();
             },
             success: function(data)
             {
               if(data =='invalid')
               {
-                $("#preview").html("Formato de archivo invalido").fadeIn(); // formato de archivo invalido
+                $("#error").html("Formato de archivo invalido").fadeIn(); // formato de archivo invalido
               }
-              else if (data == 'error') {
-                 $("#preview").html("Error en los datos ingresados").fadeIn(); // formato de archivo invalido
+              else if (data.mensaje == 'error') {
+                alert('Error en los datos ingresados');
+                // $("#error").html("").fadeIn(); // formato de archivo invalido
               }
               else
               {
@@ -207,7 +222,7 @@ $fechaActual = date('Y-m-d');
             },
             error: function(e)
             {
-              $("#preview").html(e).fadeIn();
+              $("#error").html(e).fadeIn();
             }
           });
         }));
