@@ -11,7 +11,7 @@ class Busqueda{
     /*BUSQUEDA POR NUMERO DE GUIAS */
     public function get_BusquedaGuia($num){
         $consulta = $this->db->query('CALL busquedaGuia("'.$num.'");');
-        if($filas = $consulta->fetch_assoc()){
+        while($filas = $consulta->fetch_assoc()){
             $this->Tabla[]=$filas;
         }
         return $this->Tabla;

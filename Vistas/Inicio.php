@@ -6,7 +6,7 @@ session_start();
     <head>
       <meta charset="UTF-8">
     	<title>Inicio</title>
-      <link rel="stylesheet" href="../css/StyleMenu.css">
+      <link rel="stylesheet" href="../css/Stylemenu.css">
     	<!--<link rel="stylesheet" href="../css/StyleTablas.css">-->
       <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/CSS/bootstrap.min.css">
     </head>

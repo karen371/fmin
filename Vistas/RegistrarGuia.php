@@ -1,7 +1,7 @@
 <?php
 /*FALTA EL ENCARGADO EL CUAL SE PUEDE SACAR DIRECTAMENTE DE EL SESSION[]*/
 session_start();
-require_once('../Datos/Connection.php');
+// require_once('../Datos/Connection.php');
 require_once("../Datos/Connection.php");
 require_once("../Controller/ControladorCliente.php");
 require_once("../Controller/ControladorSolicitud.php");
@@ -23,11 +23,11 @@ $fechaActual = date('Y-m-d');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css"> -->
     <!-- Latest minified bootstrap js -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script> -->
 
-    <link rel="stylesheet" href="../css/StyleMenu.css">
+    <link rel="stylesheet" href="../css/Stylemenu.css">
 
     <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
 
@@ -40,9 +40,13 @@ $fechaActual = date('Y-m-d');
       <div class="col-3"></div>
       <div class="col-9">
         <p class="text-center my-4 display-5">Guia de Despacho</p>
-             <form id="ingresar" action="../logica/registrarguia.php" method="post" enctype="multipart/form-data" class="form">
+
+
+             <!-- <form id="ingresar" action="../logica/registrarguia.php" method="post" enctype="multipart/form-data" class="form"> -->
+             <div action="../logica/registrarguia.php" enctype="multipart/form-data" class="form">
+
              <div class="row mb-3">
-              <label for="numero" class="col-sm-3 col-form-label">N° Guia</label>
+              <label for="numero" class="col-sm-3 col-form-label">*N° Guia</label>
               <div class="col-sm-9">
               <input  class="form-control" type="text" id="numero" name="numero" required>
               </div>
@@ -60,32 +64,36 @@ $fechaActual = date('Y-m-d');
               </div>
             </div>
             <div class="row mb-3">
-              <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
+              <label for="cliente" class="col-sm-3 col-form-label">*Cliente</label>
               <div class="col-sm-8">
               <select class="form-select" id="cliente" name="cliente">
                 <option value='inicio'>Seleccione una Opcion</option>
-                 <?php foreach ($datos as $key => $dato) {?>
+                 <?php
+                 var_dump($datos);
+                 foreach ($datos as $key => $dato) {?>
                     <option value="<?php echo  $dato['codcliente']?>"><?php echo $dato['nomcliente']?></option>
                  <?php }?>
               </select>
+              <div class="invalid-feedback" id="mistake1"></div>
               </div>
               <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormCli">+</button></div>
             </div>
             <div class="row mb-3">
-              <label for="solicitud" class="col-sm-3 col-form-label">Tipo Solicitud</label>
+              <label for="solicitud" class="col-sm-3 col-form-label">*Tipo Solicitud</label>
               <div class="col-sm-8">
                 <select class="form-select" id="solicitud" name="solicitud">
                   <option value='inicio'>Seleccione una Opcion</option>
                   <?php foreach ($data as $key => $s) {?>
                     <option value="<?php echo $s['codigo']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
                 </select>
+                <div class="invalid-feedback" id="mistake2"></div>
               </div>
               <div class="col-sm-1">
                                <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormSol">+</button></div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="estado" class="col-sm-3 col-form-label">Estado</label>
+              <label for="estado" class="col-sm-3 col-form-label">*Estado</label>
               <div class="col-sm-8">
               <select class="form-select" id="estado" name="estado">
                 <option value='inicio'>Seleccione una Opcion</option>
@@ -93,6 +101,7 @@ $fechaActual = date('Y-m-d');
                     <option value="<?php echo $estado['codigo'] ?>"><?php echo $estado['nombre'] ?></option>
                 <?php };?>
               </select>
+              <div class="invalid-feedback" id="mistake3"></div>
               </div>
               <div class="col-sm-1">
                     <div class="col-sm-1"><button class="btn btn-success btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#modalFormEst">+</button></div>
@@ -107,16 +116,20 @@ $fechaActual = date('Y-m-d');
              </div>
 
              <div class="row mb-3">
-              <label for="doc" class="col-sm-3 col-form-label">Documento</label>
+              <label for="doc" class="col-sm-3 col-form-label">*Documento</label>
               <div class="col-sm-9">
-              <input id="uploadImage" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
+              <input id="doc" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="doc" />
+              <div class="invalid-feedback " id="mistake4"></div>
               </div>
-            </div>
-            <p id="error"></p>
-
+             </div>
+             <div class="invalid-feedback " id="mistake4"></div>
+          <div class="row mb-3">
+            <label for="doc" class="col-sm-3 col-form-label"></label>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
-          </form>
+                <button class="btn btn-danger btn-lg btn-block" type="button"  id="ingresar">Registrar</button>
+            </div>
+          <!-- </form> -->
+          </div>
         </div>
     </div>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -133,12 +146,14 @@ $fechaActual = date('Y-m-d');
         </div>
         <div class="modal-body">
         <form class="form" role="form">
-            <p>Nombre Cliente</p>
+            <label class="col-form-label">Nombre Cliente</label>
             <input type="text" class="form-control" id="nomCliente" name="nomCliente" required/>
+            <div class="invalid-feedback" id="mistake"></div>
+            <div class="valid-feedback" id="Right"></div>
         </form>
         </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refresh('#modalFormCli')">Cancelar</button>
               <button type="button" class="btn  btn-danger" onclick="submitCliente()">Guardar</button>
           </div>
         </div>
@@ -154,12 +169,14 @@ $fechaActual = date('Y-m-d');
       </div>
       <div class="modal-body">
       <form class="form" role="form">
-          <p>Nueva Solicitud</p>
+          <label class="col-form-label">Nombre Solicitud</label>
           <input type="text" class="form-control" id="nomSolicitud" name="nomSolicitud" required/>
+          <div class="invalid-feedback" id="mistake6"></div>
+          <div class="valid-feedback" id="Right1"></div>
       </form>
       </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refresh('#modalFormSol')" >Cancelar</button>
             <button type="button" class="btn  btn-danger" onclick="submitSolicitud()">Guardar</button>
         </div>
       </div>
@@ -175,12 +192,14 @@ $fechaActual = date('Y-m-d');
       </div>
       <div class="modal-body">
       <form class="form" role="form">
-          <p>Nuevo Estado</p>
-          <input type="text" class="form-control" id="nomSolicitud" name="nomSolicitud" required/>
+          <label class="col-form-label">Nuevo Estado</label>
+          <input type="text" class="form-control" id="nomEstado" name="nomEstado" required/>
+          <div class="invalid-feedback" id="mistake7"></div>
+          <div class="valid-feedback" id="Right2"></div>
       </form>
       </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refresh('#modalFormEst')" >Cancelar</button>
             <button type="button" class="btn  btn-danger" onclick="submitEstado()">Guardar</button>
         </div>
       </div>
@@ -189,49 +208,82 @@ $fechaActual = date('Y-m-d');
 <!---Script--->
       <script>
       //registro de guia de despacho
-      $(document).ready(function (e) {
-         $("#ingresar").on('submit',(function(e) {
-           e.preventDefault();
+      // $(document).ready(function (e) {
+         $("#ingresar").on('click',(function(e) {
+          var formData = new FormData();
+              formData.append("numero", $("#numero").val());
+              formData.append("codigo", $("#codigo").val());
+              formData.append("fecha", $("#fecha").val());
+              formData.append("cliente", $("#cliente").val());
+              formData.append("solicitud", $("#solicitud").val());
+              formData.append("estado", $("#estado").val());
+              formData.append("detalle", $("#detalle").val());
+
+              var file_data = $('input[type="file"]')[0].files;
+               for (var i = 0; i < file_data.length; i++) {
+                formData.append("doc", file_data[i]);
+               }
+              // formData.append("doc",$('input[type=file]')[0].files[0]);
+              // console.log(formData.get("doc"));
            $.ajax({
             url: "../logica/registrarguia.php",
             type: "POST",
-            data:  new FormData(this),
+            data: formData,
+            dataType: 'json',
             contentType: false,
             cache: false,
             processData:false,
             beforeSend : function()
             {
-              $("#error").fadeOut();
+                $("#mistake").fadeOut();
             },
             success: function(data)
             {
-              if(data =='invalid')
+              if(data.mensaje == 'invalid')
               {
-                $("#error").html("Formato de archivo invalido").fadeIn(); // formato de archivo invalido
+                 $("#mistake4").html("*Formato de archivo invalido o campo vacio").fadeIn(); // formato de archivo invalido
               }
-              else if (data.mensaje == 'error') {
-                alert('Error en los datos ingresados');
-                // $("#error").html("").fadeIn(); // formato de archivo invalido
+              else if (data.mensaje == 'error2') {
+                var cliente   =  $("#cliente").val();
+                var solicitud =  $("#solicitud").val()
+                var estado    =  $("#estado").val()
+                if(cliente.trim() == 'inicio'){
+                  $("#mistake1").html("*Campos obligatorios").fadeIn();
+                  $("#cliente").focus();
+                }
+                if(solicitud.trim() == 'inicio'){
+                  $("#mistake2").html("*Campos obligatorios").fadeIn();
+                  $("#solicitud").focus();
+                }
+                if(estado.trim() == 'inicio'){
+                  $("#mistake3").html("*Campos obligatorios").fadeIn();
+                  $("#estado").focus();
+                }
+              //  $(".invalid-feedback").html("*Campos obligatorios").fadeIn();
+              }
+              else if(data.mensaje == 'error'){
+                  $("#mistake5").html("Error al ingrear los datos").fadeIn();
               }
               else
               {
-                alert(data);
-                $("#ingresar")[0].reset();
+                alert(data.mensaje);
+                // $("#ingresar")[0].reset();
                 location.href ="Inicio.php";
               }
             },
             error: function(e)
             {
-              $("#error").html(e).fadeIn();
+              $("#mistake").html(e).fadeIn();
             }
           });
+          e.preventDefault();
         }));
-      });
+      // });
       /*---------------INCREGAR UN NUEVO CLIENTE---------------*/
       function submitCliente(){
         var nomCliente = $('#nomCliente').val();
         if(nomCliente.trim() == ''){
-          $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
+          $('#mistake').html('*Campo Vacio').fadeIn();
           $('#nomCliente').focus();
         }
         else {
@@ -240,17 +292,19 @@ $fechaActual = date('Y-m-d');
             url:'../logica/InsertCliente.php',
             data:'&nomCliente='+nomCliente,
             beforeSend: function () {
+              $('#mistake').fadeOut();
+              $('#Right').fadeOut();
               $('.submitBtn').attr("disabled","disabled");
               $('.modal-body').css('opacity', '.5');
             },
             success:function(data){
               if(data == 'ok'){
-                $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
+                $('#Right').html('Ingresado Correctamente').fadeIn();
                 load();
                 refresh('#modalFormCli');
               }
               else{
-                $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
+                $('#mistake').html('Error al ingresar los datos.').fadeIn();
                 refresh('#modalFormCli');
               }
             }
@@ -262,11 +316,16 @@ $fechaActual = date('Y-m-d');
       function refresh(modal){
           $(modal).on('hidden.bs.modal', function (e) {
             var modal = $(this)
-              modal.find('.statusMsg').text('');
+              modal.find('#Right').text('');
+              modal.find('#mistake').text('');
+              modal.find('#Right1').text('');
+              modal.find('#mistake6').text('');
+              modal.find('#Right2').text('');
+              modal.find('#mistake7').text('');
               modal.find('input').val('');
               modal.find('input').val('');
               $('.submitBtn').removeAttr("disabled");
-              $('.modal-body').css('opacity', '');¿
+              $('.modal-body').css('opacity', '');
           });
       }
       /*----------ELIMINAR LA LISTA DE CLIENTES DE EL SELECT---------------*/
@@ -281,40 +340,42 @@ $fechaActual = date('Y-m-d');
        /*---------------CARGAR DATOS CLIENTE---------------*/
       function load(){
           EliminarCliente();
-             $.post("get_Cliente.php", function(data){
+             $.post("../Controller/get_Cliente.php", function(data){
                $("#cliente").html(data);
             });
       }
       /*---------------INCREGAR UN NUEVA SOLICITUD---------------*/
       function submitSolicitud(){
-             var nomSolicitud = $('#nomSolicitud').val();
-             if(nomSolicitud.trim() == ''){
-               $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
-               $('#nomSolicitud').focus();
-             }
-             else {
-               $.ajax({
-                 type:'POST',
-                 url:'../logica/InsertSolicitud.php',
-                 data:'&nomSolicitud='+nomSolicitud,
-                 beforeSend: function () {
-                   $('.submitBtn').attr("disabled","disabled");
-                   $('.modal-body').css('opacity', '.5');
-                 },
-                 success:function(data){
-                   if(data == 'ok'){
-                     $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
-                     loadSol();
-                     refresh('#modalFormSol');
-                   }
-                   else{
-                     $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
-                     refresh('#modalFormSol');
-                   }
-                 }
-               });
-               refresh('#modalFormSol');
-             }
+        var nomSolicitud = $('#nomSolicitud').val();
+        if(nomSolicitud.trim() == ''){
+          $('#mistake6').html('*Campo Vacio').fadeIn();
+          $('#nomSolicitud').focus();
+        }
+        else {
+          $.ajax({
+            type:'POST',
+            url:'../logica/InsertSolicitud.php',
+            data:'&nomSolicitud='+nomSolicitud,
+            beforeSend: function () {
+              $('#mistake6').fadeOut();
+              $('#Right1').fadeOut();
+              $('.submitBtn').attr("disabled","disabled");
+              $('.modal-body').css('opacity', '.5');
+            },
+            success:function(data){
+              if(data == 'ok'){
+                $('#Right1').html('Ingresado Correctamente').fadeIn();
+                load();
+                refresh('#modalFormCli');
+              }
+              else{
+                $('#mistake6').html('Error al ingresar los datos.').fadeIn();
+                refresh('#modalFormSol');
+              }
+            }
+          });
+          refresh('#modalFormSol');
+        }
            }
            /*----------ELIMINAR LA LISTA DE CLIENTES DE EL SELECT---------------*/
            function EliminarSolicitud(){
@@ -328,7 +389,7 @@ $fechaActual = date('Y-m-d');
            /*---------------CARGAR DATOS SOLICITUD---------------*/
            function loadSol(){
                EliminarSolicitud();
-                  $.post("get_Solicitud.php", function(data){
+                  $.post("../Controller/get_Solicitud.php", function(data){
                     $("#solicitud").html(data);
                  });
            }
@@ -336,7 +397,7 @@ $fechaActual = date('Y-m-d');
            function submitEstado(){
                   var nomEstado = $('#nomEstado').val();
                   if(nomEstado.trim() == ''){
-                    $('.error').html('<span style="color:red;">*Campo Vacio.</p>');
+                    $('#mistake7').html('*Campo Vacio.').fadeIn();
                     $('#nomEstado').focus();
                   }
                   else {
@@ -345,17 +406,19 @@ $fechaActual = date('Y-m-d');
                       url:'../logica/InsertEstado.php',
                       data:'&nomEstado='+nomEstado,
                       beforeSend: function () {
+                        $('#mistake7').fadeOut();
+                        $('#Right2').fadeOut();
                         $('.submitBtn').attr("disabled","disabled");
                         $('.modal-body').css('opacity', '.5');
                       },
                       success:function(data){
                         if(data == 'ok'){
-                          $('.statusMsg').html('<span style="color:green;">Ingresado Correctamente.</p>');
+                          $('#Right2').html('Ingresado Correctamente.').fadeIn();
                           loadEst();
                           refresh('#modalFormEst');
                         }
                         else{
-                          $('.statusMsg').html('<span style="color:red;">Error al ingresar los datos.</p>');
+                          $('#mistake7').html('Error al ingresar los datos.').fadeIn();
                           refresh('#modalFormEst');
                         }
                       }
@@ -375,7 +438,7 @@ $fechaActual = date('Y-m-d');
                 /*---------------CARGAR DATOS SOLICITUD---------------*/
                 function loadEst(){
                     EliminarEstado();
-                       $.post("get_Estado.php", function(data){
+                       $.post("../Controller/get_Estado.php", function(data){
                          $("#estado").html(data);
                       });
                 }

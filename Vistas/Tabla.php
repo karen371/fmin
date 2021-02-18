@@ -24,7 +24,7 @@ $des = new descripcion_model();
       </thead>
         <tbody>
     <?php
-    $datos = $des->get_descripcionTodo();
+    $datos = $des->get_descripcion();
     foreach ($datos as $dato) {
       /*VARIABLES*/
       $folio     = $dato['codFolio'];

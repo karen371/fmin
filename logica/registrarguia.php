@@ -20,7 +20,7 @@ $path = '../Archivos/';
 /*verificar campos vacios*/
 
 if($_POST['cliente'] == 'inicio' || $_POST['solicitud'] == 'inicio' || $_POST['estado'] == 'inicio'){
-  $jsondata['mensaje'] = "error";
+  $jsondata['mensaje'] = "error2";
 }
 else {
   if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']) || !empty($_POST['detalle']) ||
@@ -50,20 +50,24 @@ else {
               /*Insertar datos  */
               if($guia->InsertGuia($NUMERO, $CLIENTE, $TIPOSOLI, $CODIGO, $DETALLE ,$newDate, $codTrab, $path ) == true){
                  /*SACAL EL NUMERO MAXIMO DE LA GUIA*/
-                 $MaxGuia = $guia->get_codMaximo();
+                 try {
+                   $MaxGuia = $guia->get_codMaximo();
+                 } catch (Exception $e) {
+                     $jsondata['mensaje'] = "error";
+                 }
                  if($des->Insert($MaxGuia, $Estado) == true){
                    /*SACAL EL NUMERO MAXIMO DE LA DESCRIPCION*/
                    $MaxFolio = $des->get_codMaximo();
                    $jsondata['mensaje'] = 'Se han ingresado los datos con exito, el  codigo SC es: '.$MaxFolio;
                  }
-                 else{$jsondata['mensaje'] = "error"; ;}
+                 else{$jsondata['mensaje'] = "error";}
                }
-               else{ e$jsondata['mensaje'] = "error";}
+               else{ $jsondata['mensaje'] = "error";}
            }
          }
          else {$jsondata['mensaje'] = 'invalid';}
     }
-    else{$jsondata['mensaje'] = "error"; ;}
+    else{$jsondata['mensaje'] = "error";}
 
 }
 

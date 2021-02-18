@@ -173,10 +173,10 @@ INSERT INTO estado (nombre) VALUES ('Enviada');
 
 
 CREATE VIEW descripcion  AS
-SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido
-FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab
-WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab ORDER BY D.codFolio DESC LIMIT 15;
-
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido, est.nombre AS estado
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab, estado AS est
+WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND   d.Estado = est.codigo
+ORDER BY D.codFolio DESC LIMIT 15;
 
 CREATE VIEW descripcionTodo AS
 SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido, est.nombre AS estado
@@ -214,8 +214,8 @@ DELIMITER $$
   DELIMITER $$
   CREATE PROCEDURE busquedaGuia (in num int(8))
   BEGIN
-    SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido
-    FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab
-    WHERE gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo and gc.encargado = tab.codtrab;
+  SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, e.nombre
+    FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
+    WHERE gc.codnumero = 1253 AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo and gc.encargado = tab.codtrab AND d.Estado = e.codigo;
   END $$
   DELIMITER;

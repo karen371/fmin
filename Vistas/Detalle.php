@@ -15,8 +15,9 @@ $guia      = new GuiaSalida();
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
  <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
- <link rel="stylesheet" href="../css/StyleMenu.css" type="text/css">
+ <link rel="stylesheet" href="../css/Stylemenu.css" type="text/css">
   <title></title>
 </head>
   <body>
@@ -135,5 +136,7 @@ $guia      = new GuiaSalida();
   <footer>
     <br><br><br>
   </footer>
+  <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+  </body>
 </html>
 <!--ARREGLAR LOS BOTONES DE DESCARGAS PONERLOS PRESENTABLES-->
