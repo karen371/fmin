@@ -26,13 +26,14 @@ $fechaActual = date('Y-m-d');
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!--  <link rel="stylesheet" href="../css/Styleform.css">-->
-    <link rel="stylesheet" href="../css/StyleMenu.css">
+    <link rel="stylesheet" href="../css/Stylemenu.css">
     <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <title>Registrar</title>
   </head>
   <body>
     <head>
         <?php  include('menu.php') ?>
+        <br>
     </head>
     <?php
         $x = ($_GET['codigo']);
@@ -44,7 +45,7 @@ $fechaActual = date('Y-m-d');
             $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
             $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];        $Estado    = $fol ['estado'];
             $docEnt    = $guiaE->NombreDocumento($numero);
-            $docSal = $guiaS->NombreDocumento($numS);
+            $docSal    = $guiaS->NombreDocumento($numS);
             /*Falta la informacion de la guia de salida*/
             $texto = substr($detalle, 0, 10);
             $palabras = explode(' ', $texto);
@@ -121,10 +122,10 @@ $fechaActual = date('Y-m-d');
                    <?php
                      foreach ($datos as  $dato) {
                        if(strcasecmp($dato['nomcliente'], $cliente) == 0){
-                         ?> <option id="<?php $dato['nomcliente'] ?>" selected><?php echo $dato['nomcliente'] ?></option>?> <?php
+                         ?> <option value="<?php echo  $dato['codcliente'] ?>" selected><?php echo $dato['nomcliente'] ?></option>?> <?php
                        }
                        else{
-                         ?> <option id="<?php $dato['nomcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
+                         ?> <option value="<?php echo $dato['codcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
                        }
                      } ?>
                 </select>
@@ -138,10 +139,10 @@ $fechaActual = date('Y-m-d');
                     <?php
                     foreach ($data as  $s) {
                       if(strcasecmp($s['nombre'] , $solicitud) == 0){
-                        ?><option id="<?php $s['codigo'] ?>" selected><?php echo $s['nombre'] ?></option>?> <?php
+                        ?><option value="<?php echo $s['codigo'] ?>" selected><?php echo $s['nombre'] ?></option>?> <?php
                       }
                       else{
-                        ?><option id="<?php $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
+                        ?><option value="<?php echo $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
                       }
                  } ?>
                  </select>
@@ -155,10 +156,10 @@ $fechaActual = date('Y-m-d');
                      <?php
                        foreach ($state as $estado) {
                          if(strcasecmp($estado['nombre'] , $Estado) == 0){
-                           ?><option id="<?php $estado['codigo'] ?>" selected><?php echo $estado['nombre'] ?></option>?> <?php
+                           ?><option value="<?php echo $estado['codigo'] ?>" selected><?php echo $estado['nombre'] ?></option>?> <?php
                          }
                          else{
-                           ?><option id="<?php $estado['codigo']?>"><?php echo $estado['nombre'] ?></option><?php
+                           ?><option value="<?php echo  $estado['codigo']?>"><?php echo $estado['nombre'] ?></option><?php
                          }
                        }
                       ?>
@@ -171,19 +172,19 @@ $fechaActual = date('Y-m-d');
                     <textarea class="form-control" type="text" id="detalle" name="detalle"  maxlength="1000 "  cols="40" rows="5"><?php echo $detalle ?></textarea>
                 </div>
              </div>
-             <div class="row mb-4">
+             <div class="row ">
                <label for="documentoA" class="col-sm-3 col-form-label">Documento Actual</label>
-               <div class="col-sm-8">
+               <div class="col">
                  <p><?php echo  $docEnt ?></p>
                </div>
+               <div class="col">
+                     <div class="btn-group  " role="group" aria-label="Basic example">
+                    <button class="btn btn-outline-danger float-left" type="button" name="button">Agregar</button>
+                    <button class="btn btn-outline-danger float-left" type="button" name="button">Eliminar</button>
+                     </div>
+               </div>
              </div>
-             <div class="row mb-4">
-                <label for="documento" class="col-sm-3 col-form-label">Subir Documento</label>
-                <div class="col-sm-8">
-                    <input class="form-control-file" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng">
-                    <div id="error" style="color:red"></div><br>
-                </div>
-             </div>
+
             <!------------------------------------------------------------------------------>
             <div class="col-5">
               <h3 class=" my-2 display-7 ">Datos de Egreso</h2>
@@ -200,30 +201,36 @@ $fechaActual = date('Y-m-d');
                    <input class="form-control" type="text" id="numsal" name="numsal" value="<?php echo $numS ; ?>">
                </div>
             </div>
-            <div class="row mb-4">
+            <div class="row">
                <label for="doc" class="col-sm-3 col-form-label">Documento Actual</label>
-               <div class="col-sm-8">
+               <div class="col">
                    <p><?php echo $docSal ?></p>
                </div>
-            </div>
-            <div class="row mb-4">
-               <label for="documento" class="col-sm-3 col-form-label">Subir Documento</label>
-               <div class="col-sm-8">
-                   <input id="uploaddoc" class="form-control" type="file" accept=".doc,.docx,.pdf,.txt" name="docIng">
-                   <div id="error" style="color:red"></div>
+               <div class="col">
+                     <div class="btn-group  " role="group" aria-label="Basic example">
+                    <button class="btn btn-outline-danger float-left" type="button" name="button">Agregar</button>
+                    <button class="btn btn-outline-danger float-left" type="button" name="button">Eliminar</button>
+                     </div>
                </div>
             </div>
-            <div class="d-grid gap-3" >
-                <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
+            <br>
+            <div class="row">
+
+              <div class="d-grid gap-3" >
+                  <button class="btn btn-danger btn-lg btn-block" type="submit">Registrar</button>
+              </div>
             </div>
+
       </form>
     </div>
-  </div
+  </div>
+  <br><br>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
   $(document).ready(function (e) {
     $("#ingresar").on('submit',(function(e) {
+
       e.preventDefault();
       $.ajax({
        url: "../logica/Modificar.php",
@@ -260,6 +267,9 @@ $fechaActual = date('Y-m-d');
      });
    }));
   });
+  </script>
+  <script>
+        //script para las ventana de agregar archivo y eliminar archivo
   </script>
   <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>

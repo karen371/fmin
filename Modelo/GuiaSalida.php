@@ -11,8 +11,8 @@ class GuiaSalida
     $this->guia=array();
   }
   /*FALTA INGRESAR DOCUMENTACION */
-  public function InsertGuia($fecha, $num, $doc ){
-      if($this->db->query('INSERT INTO gdespachoe( codnumero, fecha, archivo) VALUES ("'.$num.'", "'.$fecha.'", "'.$doc.'")')){
+  public function InsertGuia($fecha, $num ){
+      if($this->db->query('INSERT INTO gdespachoe( codnumero, fecha) VALUES ("'.$num.'", "'.$fecha.'")')){
         return true;
       }
       else{

@@ -11,7 +11,7 @@ $fechaActual = date('Y-m-d');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +26,8 @@ $fechaActual = date('Y-m-d');
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css"> -->
     <!-- Latest minified bootstrap js -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script> -->
-
-    <link rel="stylesheet" href="../css/Stylemenu.css">
-
     <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/Stylemenu.css">
 
     <title>Registrar</title>
   </head>
@@ -40,8 +38,6 @@ $fechaActual = date('Y-m-d');
       <div class="col-3"></div>
       <div class="col-9">
         <p class="text-center my-4 display-5">Guia de Despacho</p>
-
-
              <!-- <form id="ingresar" action="../logica/registrarguia.php" method="post" enctype="multipart/form-data" class="form"> -->
              <div action="../logica/registrarguia.php" enctype="multipart/form-data" class="form">
 
@@ -443,6 +439,6 @@ $fechaActual = date('Y-m-d');
                       });
                 }
       </script>
-      <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+
   </body>
 </html>

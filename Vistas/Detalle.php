@@ -31,9 +31,7 @@ $guia      = new GuiaSalida();
         $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];        $estado    = $fol ['estado'];
-        $documento = "<button type='button' name='button'>
-                        <a href='../logica/descarga.php?archivos=".$guia->Documento($numS)."'>Descargar</a>
-                      </button>";
+        $documento = "<a class='btn btn-danger btn-sm' href='../logica/descarga.php?archivos= echo".$guia->Documento($numS)."'>Descargar</a>";
         $nombreDoc = $guia->NombreDocumento($numS);
       }
     }
@@ -44,98 +42,103 @@ $guia      = new GuiaSalida();
         $detalle   = $fol ['descripcion']; $fecha     = $fol ['fecha'];        $cliente   = $fol ['nomcliente'];
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $estado = $fol ['estado'];         $numS      = '';                    $nfecha    = '';
-        $documento = ' ';                  $nombreDoc = ' ';
+        $documento = ' ';                  $nombreDoc = '';
       }
     }
 ?>
 <div class="">
-   <nav>
-     <ul>
-       <li><a href="ModificarGuia.php?codigo=<?php echo $folio?>"><span class="icon-suitcase"></span>Modificar Guia</a></li>
-       <li><a href="Inicio.php"><span class="icon-suitcase"></span>Imprimir</a></li>
-     </ul>
-   </nav>
+    <br>
 </div>
-<div class="Separacion">
-   <h2>Detalle Ingreso</h2>
+<div class="container">
+<div class="row">
+    <div class="col">
+      <div class="mx-auto"> <h2>Detalle Ingreso</h2></div>
+    </div>
+    <div class="col"> </div>
+    <div class="col">
+          <div class="btn-group  " role="group" aria-label="Basic example">
+            <a class="btn btn-outline-danger float-left" href="ModificarGuia.php?codigo=<?php echo $folio?>"><span class="icon-suitcase"></span>Modificar</a>
+            <a class="btn btn-outline-danger float-left" href="Inicio.php"><span class="icon-suitcase"></span>Imprimir</a>
+          </div>
+    </div>
 </div>
-<div class="content">
- <table>
-   <tr>
-     <th><label>SC</label></th>
-     <td><label><?php echo $folio;  ?></label></td>
-   </tr>
-   <tr>
-     <th><label>N° Guia</label></th>
-     <td><label><?php echo $numero; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Codigo Solped</label></th>
-     <td><label style="text-transform:uppercase"><?php echo $codigo; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Encargado Ingreso</label></th>
-     <td><label><?php echo $nombreen.' '.$apellido; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Fecha Ingreso</label></th>
-     <td><label><?php echo $fecha;  ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Tipo Solicitud</label></th>
-     <td><label><?php echo $solicitud; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Cliente</label> </th>
-     <td><label><?php echo $cliente;?></label></td>
-   </tr>
-   <tr>
-     <th><label>Estado</label> </th>
-     <td><label><?php echo $estado;?></label></td>
-   </tr>
-   <tr >
-     <th><label>Detalle</label></th>
-     <td ><label><?php echo $detalle ?> </label></td>
-   </tr>
-   <tr>
-     <td> <label for=""> Fotos con descripcion</label> </td>
-   </tr>
-   <tr>
-     <th><label>Guia de despacho</label></th>
-     <td><label><?php echo $guiaEntra->NombreDocumento($numero) ?></label></td>
-     <td><label>
-         <button type="button" name="button">
-         <a href='../logica/descarga.php?archivos=<?php$guiaEntra->Documento($numero)?>'>Descargar</a>
-       </button>
-       </label></td>
-   </tr>
- </table>
- <div class="Separar">
-     <h2>Detalle Egreso</h2>
- </div>
- <table>
-   <tr>
-     <th><label>Fecha de Egreso</label></th>
-     <td><label><?php echo $nfecha; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>N° de guia</label></th>
-     <td><label><?php echo $numS; ?></label></td>
-   </tr>
-   <tr>
-     <th><label>Guia de despacho</label></th>
-     <td><label><?php echo $nombreDoc; ?></label></td>
-     <td><label><?php echo $documento ?></label></td>
-   </tr>
-   <tr>
-     <td> <label for=""> Fotos con descripcion</label> </td>
-   </tr>
- </table>
+  <div class="row">
+      <div class="col "> <label class="fw-bold">SC</label> </div>
+      <div class="col"> <label><?php echo $folio;  ?></label> </div>
+      <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">N° Guia</label> </div>
+    <div class="col"> <label><?php echo $numero; ?></label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Codigo Solped</label> </div>
+    <div class="col"> <label style="text-transform:uppercase"><?php echo $codigo; ?></label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Encargado Ingreso</label>  </div>
+    <div class="col"> <label><?php echo $nombreen.' '.$apellido; ?></label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Fecha Ingreso</label>  </div>
+    <div class="col"> <label><?php echo $fecha;  ?></label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col">  <label class="fw-bold">Tipo Solicitud</label>  </div>
+    <div class="col"> <label><?php echo $solicitud; ?></label>  </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Cliente</label>  </div>
+    <div class="col"> <label><?php echo $cliente;?></label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Estado</label> </div>
+    <div class="col"> <label><?php echo $estado;?></label>  </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Detalle</label>
+    </div>
+    <div class="col"> <label><?php echo $detalle ?> </label> </div>
+    <div class="col"> </div>
+  </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Guia de despacho</label> </div>
+    <div class="col"> <label><?php echo $guiaEntra->NombreDocumento($numero) ?></label> </div>
+    <div class="col"> <label>
+                        <!--  <button type="button" name="button">-->
+                            <a class="btn btn-danger btn-sm" href='../logica/descarga.php?archivos=<?php echo $guiaEntra->Documento($numero)?>'>Descargar</a>
+                        <!--  </button>-->
+                      </label>
+    </div>
+  </div>
+<div class="mx-auto"> <h2>Detalle Egreso</h2> </div>
+<div class="row">
+  <div class="col"> <label class="fw-bold">N° de guia</label> </div>
+  <div class="col"> <label><?php echo $numS; ?></label> </div>
+  <div class="col"> </div>
 </div>
+  <div class="row">
+    <div class="col"> <label class="fw-bold">Fecha de Egreso</label> </div>
+    <div class="col"> <label ><?php echo $nfecha; ?></label> </div>
+    <div class="col">   </div>
+  </div>
+  <div class="row">
+      <div class="col"> <label class="fw-bold">Guia de despacho</label>   </div>
+      <div class="col"> <label><?php echo $nombreDoc; ?></label>  </div>
+      <div class="col"> <label><?php echo $documento ?></label>   </div>
+  </div>
+  <br>
+</div>
+
   </body>
-  <footer>
-    <br><br><br>
-  </footer>
+
   <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>
