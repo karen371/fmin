@@ -55,7 +55,7 @@ class GuiaEntrada
 
   /*direccion de el Archivo*/
   public function Documento($num){
-      $consulta=$this->db->query('SELECT * FROM gdespachoc WHERE codnumero ='.$num);
+      $consulta=$this->db->query('SELECT * FROM gdespachoc WHERE codDc ='.$num);
       if($con=$consulta->fetch_assoc()){
           return $con['archivo'];
       }
@@ -70,5 +70,21 @@ class GuiaEntrada
         return $archivo;
       }
   }
+  public function eliminarDoc($num){
+    //eliminar el documento de la base de datos
+    if($this->db->query('UPDATE gdespachoc SET archivo = "" WHERE codDc ='.$num)){
+        return true;
+    }
+    else { return false;}
+  }
+
+  public function UpdatedDocumento($num, $doc){
+    //eliminar el documento de la base de datos
+    if($this->db->query('UPDATE `gdespachoc` SET archivo = "'.$doc.'"  WHERE codDc ='.$num)){
+        return true;
+    }
+    else { return false;}
+  }
+
 }
  ?>

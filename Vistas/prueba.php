@@ -7,18 +7,15 @@ $dato = $datos
  ?>
 
  <!DOCTYPE html>
- <html lang="en" dir="ltr" onload="Recargar($datos)" >
+ <html lang="en" dir="ltr">
    <head>
      <meta charset="utf-8">
+     <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
      <title></title>
    </head>
    <body>
-
-
-       <select id="cliente" name="cliente"></select>
-
-
-
-     <script src="../Js/GuiaDespachoJS.js"></script>
+     <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Primary link</a>
+    <!--Descripciones para las imagenes -->
+       <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
    </body>
  </html>

@@ -29,9 +29,9 @@ if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']
        $Estado   = $_POST['estado'];
        $newDate  = date("d-m-Y", strtotime($FECHA));  $nfecha   = date("d-m-Y", strtotime($FECHASAL));
        //CODIGO GUIA DE SALIDA
-$codNge = $des->get_numGuiaS($folio);
-//CODIGO GUIA DE ENTRADA
-$codNgc = $des->get_numGuiaE($folio);
+       $codNge = $des->get_numGuiaS($folio);
+       //CODIGO GUIA DE ENTRADA
+       $codNgc = $des->get_numGuiaE($folio);
 
        /*VERIFICAR DOCUMENOTO DE GUIA DE INGRESO */
           /*Insertar datos  */
@@ -55,5 +55,7 @@ $codNgc = $des->get_numGuiaE($folio);
          }
          else{echo 'error';}
 }
+
+
 
  ?>

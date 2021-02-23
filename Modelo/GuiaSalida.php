@@ -11,8 +11,8 @@ class GuiaSalida
     $this->guia=array();
   }
   /*FALTA INGRESAR DOCUMENTACION */
-  public function InsertGuia($fecha, $num ){
-      if($this->db->query('INSERT INTO gdespachoe( codnumero, fecha) VALUES ("'.$num.'", "'.$fecha.'")')){
+  public function InsertGuia($fecha, $num, $doc ){
+      if($this->db->query('INSERT INTO gdespachoe( codnumero, fecha, archivo) VALUES ("'.$num.'", "'.$fecha.'","'.$doc.'")')){
         return true;
       }
       else{
@@ -41,7 +41,7 @@ class GuiaSalida
 
   /*direccion de el Archivo*/
   public function Documento($num){
-      $consulta=$this->db->query('SELECT * FROM gdespachoe WHERE codnumero ='.$num);
+      $consulta=$this->db->query('SELECT * FROM gdespachoe WHERE codDe  ='.$num);
       if($con=$consulta->fetch_assoc()){
           return $con['archivo'];
       }
@@ -64,6 +64,19 @@ class GuiaSalida
       else{
         return false;
       }
+  }
+  public function eliminarDoc($num){
+    //eliminar el documento de la base de datos
+    if($this->db->query('UPDATE gdespachoe SET archivo = "" WHERE codDe ='.$num)){
+      return true;
+    }else {return false;}
+
+  }
+  public function UpdatedDocumento2($num, $doc){
+    //modificar la direccion de el archivo en la base de datos
+    if($this->db->query('UPDATE gdespachoe SET archivo = "'.$doc.'" WHERE codDe ='.$num)){
+      return true;
+    }else {return false;}
   }
 }
 
