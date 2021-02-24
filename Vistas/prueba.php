@@ -1,21 +1,96 @@
-<?php
-//require_once('../Datos/Conexion.php');
-require_once("../Datos/Connection.php");
-require_once("../Controller/ControladorCliente.php");
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Bootstrap 5 | Carousel
+		</title>
 
-$dato = $datos
- ?>
+		<!-- Load Bootstrap -->
+		<link rel="stylesheet"
+			href=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+			integrity=
+"sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+			crossorigin="anonymous" />
+		<script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+				integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+				crossorigin="anonymous">
+	</script>
+		<script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+				integrity=
+"sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+				crossorigin="anonymous">
+	</script>
+	</head>
 
- <!DOCTYPE html>
- <html lang="en" dir="ltr">
-   <head>
-     <meta charset="utf-8">
-     <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
-     <title></title>
-   </head>
-   <body>
-     <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Primary link</a>
-    <!--Descripciones para las imagenes -->
-       <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
-   </body>
- </html>
+	<style>
+		// Customizing the carousel for white background
+		.carousel-indicators .active {
+			background-color: green;
+		}
+
+		.carousel-indicators li {
+			background-color: burlywood;
+		}
+	</style>
+
+	<body style="text-align: center;">
+		<div class="container mt-3">
+			<h1 style="color: green;">
+				GeeksforGeeks
+			</h1>
+
+			<div id="GFG"
+				class="carousel slide"
+				data-ride="carousel">
+				<!-- Indicators -->
+				<ul class="carousel-indicators">
+					<li data-target="#GFG"
+						data-slide-to="0"
+						class="active"></li>
+					<li data-target="#GFG"
+						data-slide-to="1"></li>
+					<li data-target="#GFG"
+						data-slide-to="2"></li>
+				</ul>
+
+				<!-- The slideshow -->
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-9.png"
+							alt="GFG" />
+					</div>
+
+					<div class="carousel-item">
+						<img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20190918234528/colorize1.png"
+							alt="GFG" />
+					</div>
+
+					<div class="carousel-item">
+						<img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20190918234815/colorize2.png"
+							alt="GFG" />
+					</div>
+				</div>
+
+				<a class="carousel-control-prev"
+				href="#GFG"
+				data-slide="prev">
+					<span class="carousel-control-prev-icon">
+				</span>
+				</a>
+				<a class="carousel-control-next"
+				href="#GFG"
+				data-slide="next">
+					<span class="carousel-control-next-icon">
+				</span>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

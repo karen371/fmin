@@ -165,6 +165,7 @@ INSERT INTO tiposolicitud (nombre) VALUES ('Proceso');
 INSERT INTO tiposolicitud (nombre) VALUES ('Aporte Mandante');
 INSERT INTO tiposolicitud (nombre) VALUES ('Modificacion');
 INSERT INTO tiposolicitud (nombre) VALUES ('Confeccion');
+
 INSERT INTO estado (nombre) VALUES ('Pendiente');
 INSERT INTO estado (nombre) VALUES ('En Ejecucion');
 INSERT INTO estado (nombre) VALUES ('Terminada');

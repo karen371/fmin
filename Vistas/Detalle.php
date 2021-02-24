@@ -24,7 +24,8 @@ $fechaActual = date('Y-m-d');
   <body>
     <?php include('menu.php');
     ?>
-    <div class="container"><?php
+    <div class="container ">
+    <?php
     $x = ($_GET['codigo']);
 
     if($guiaSali->Existe($x)){
@@ -42,7 +43,7 @@ $fechaActual = date('Y-m-d');
       ?>
       <div class="row pt-4">
           <div class="col">
-            <div class="mx-auto"> <h2>Detalle Ingreso</h2></div>
+            <div class="mx-auto"> <h2>Detalle</h2></div>
           </div>
           <div class="col"> </div>
           <div class="col-6">
@@ -67,7 +68,7 @@ $fechaActual = date('Y-m-d');
       ?>
       <div class="row pt-4">
           <div class="col">
-            <div class="mx-auto"> <h2>Detalle Ingreso</h2></div>
+            <div class="mx-auto"> <h2>Detalle </h2></div>
           </div>
           <div class="col"> </div>
           <div class="col-6">
@@ -81,6 +82,8 @@ $fechaActual = date('Y-m-d');
       <?php
     }
 ?>
+<br>
+<div class="mx-auto"> <h2>Detalle Egreso</h2> </div>
   <div class="row">
       <div class="col "> <label class="fw-bold">SC</label> </div>
       <div class="col"> <label><?php echo $folio;  ?></label> </div>
