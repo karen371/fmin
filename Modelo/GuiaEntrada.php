@@ -10,9 +10,9 @@ class GuiaEntrada
     $this->guia=array();
   }
 /*FALTA INGRESAR DOCUMENTO*/
-  public function InsertGuia($NUMERO, $numcliente, $numsolicitud, $CODIGO, $DETALLE ,$newDate, $codTrabajador, $doc){
-        if($this->db->query('INSERT INTO gdespachoc (codnumero, codcliente, TipoSolicitud, codS, descripcion, fecha, archivo, encargado)
-                  VALUES ("'.$NUMERO.'","'.$numcliente.'","'.$numsolicitud.'","'.$CODIGO.'","'.$DETALLE.'","'.$newDate.'","'.$doc.'","'.$codTrabajador.'")')){
+  public function InsertGuia($NUMERO, $numcliente, $numsolicitud, $CODIGO, $DETALLE ,$newDate, $codTrabajador){
+        if($this->db->query('INSERT INTO gdespachoc (codnumero, codcliente, TipoSolicitud, codS, descripcion, fecha, encargado,archivo)
+                  VALUES ("'.$NUMERO.'","'.$numcliente.'","'.$numsolicitud.'","'.$CODIGO.'","'.$DETALLE.'","'.$newDate.'","'.$codTrabajador.'"," ")')){
           return true;
         }
         else{
@@ -63,7 +63,7 @@ class GuiaEntrada
 
   /*NOMBRE DE EL ARCHIVO*/
   public function NombreDocumento($num){
-      $consulta = $this->db->query('SELECT * FROM gdespachoc WHERE codnumero ='.$num);
+      $consulta = $this->db->query('SELECT * FROM gdespachoc WHERE codDc ='.$num);
       if($con = $consulta->fetch_assoc()){
         $path = $con['archivo'];
         $archivo = basename($path);

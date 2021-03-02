@@ -1,96 +1,84 @@
+<?php
+session_start();
+require_once('../Datos/Connection.php');
+require_once('../Modelo/descripcion.php');
+$guiaSali  = new descripcion_model();
+ ?>
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 	<head>
-		<title>
-			Bootstrap 5 | Carousel
-		</title>
-
-		<!-- Load Bootstrap -->
-		<link rel="stylesheet"
-			href=
-"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-			integrity=
-"sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-			crossorigin="anonymous" />
-		<script src=
-"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-				integrity=
-"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-				crossorigin="anonymous">
-	</script>
-		<script src=
-"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-				integrity=
-"sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-				crossorigin="anonymous">
-	</script>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+	 <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
+	 <link rel="stylesheet" href="../css/Stylemenu.css" type="text/css">
+	 <!-- Compiled and minified Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<!-- Minified JS library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Compiled and minified Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/j"></script>
+		<title></title>
 	</head>
+	<body>
+		<!--IMAGENES-->
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-	<style>
-		// Customizing the carousel for white background
-		.carousel-indicators .active {
-			background-color: green;
-		}
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="../imagenes/71img2.jpg" alt="">
+            <div class="carousel-caption">
+                <h3>First Slide</h3>
+                <p>This is the first image slide</p>
+            </div>
+        </div>
 
-		.carousel-indicators li {
-			background-color: burlywood;
-		}
-	</style>
+        <div class="item">
+            <img src="../imagenes/img2.jpg" alt="">
+            <div class="carousel-caption">
+                <h3>Second Slide</h3>
+                <p>This is the second image slide</p>
+            </div>
+        </div>
 
-	<body style="text-align: center;">
-		<div class="container mt-3">
-			<h1 style="color: green;">
-				GeeksforGeeks
-			</h1>
+        <div class="item">
+            <img src="../imagenes/img1.jpg" alt="">
+            <div class="carousel-caption">
+                <h3>Third Slide</h3>
+                <p>This is the third image slide</p>
+            </div>
+        </div>
+    </div>
 
-			<div id="GFG"
-				class="carousel slide"
-				data-ride="carousel">
-				<!-- Indicators -->
-				<ul class="carousel-indicators">
-					<li data-target="#GFG"
-						data-slide-to="0"
-						class="active"></li>
-					<li data-target="#GFG"
-						data-slide-to="1"></li>
-					<li data-target="#GFG"
-						data-slide-to="2"></li>
-				</ul>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+	<script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	// Call carousel manually
+	$('#myCarousel').carousel();
 
-				<!-- The slideshow -->
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-9.png"
-							alt="GFG" />
-					</div>
-
-					<div class="carousel-item">
-						<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20190918234528/colorize1.png"
-							alt="GFG" />
-					</div>
-
-					<div class="carousel-item">
-						<img src=
-"https://media.geeksforgeeks.org/wp-content/uploads/20190918234815/colorize2.png"
-							alt="GFG" />
-					</div>
-				</div>
-
-				<a class="carousel-control-prev"
-				href="#GFG"
-				data-slide="prev">
-					<span class="carousel-control-prev-icon">
-				</span>
-				</a>
-				<a class="carousel-control-next"
-				href="#GFG"
-				data-slide="next">
-					<span class="carousel-control-next-icon">
-				</span>
-				</a>
-			</div>
-		</div>
+	// Go to the previous item
+	$("#prevBtn").click(function(){
+	    $("#myCarousel").carousel("prev");
+	});
+	// Go to the previous item
+	$("#nextBtn").click(function(){
+	    $("#myCarousel").carousel("next");
+	});
+	</script>
 	</body>
 </html>

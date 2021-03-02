@@ -2,14 +2,15 @@
 class descripcion_model{
     private $db;
     private $tabla;
+    private $img;
 
     public function __construct(){
         $this->db = Conectar::conexion();
         $this->tabla = array();
+        $this->img=array();
     }
     /*LLAMA A UNA VISTA Y MUESTRA LOS DATOS CUANDO TIENEN GUIA DE SALIDA*/
     public function get_descripcion(){
-
         $consulta=$this->db->query('SELECT * FROM descripcion;');
         while($filas=$consulta->fetch_assoc()){
             $this->tabla[]=$filas;
@@ -89,6 +90,31 @@ class descripcion_model{
         }else{
           return false;
         }
+    }
+    /*AGREGAR IMAGENES*/
+    public function InsertImages($folio, $img, $des){
+      if($this->db->query('INSERT INTO imgot(codfolio, imagen, descripcion) VALUES ("'.$folio.'","'.$img.'","'.$des.'" );')){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    /*ELIMINAR IMAGENES*/
+    public function EliminarImagen($id){
+      if($this->db->query('DELETE FROM imgot WHERE codimg="'.$id.'" ')){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    /*LISTA DE IMAGENES*/
+    public function MostrarImagen($folio){
+      $consulta=$this->db->query('SELECT * FROM imgot WHERE codfolio = "'.$folio.'"');
+      while($filas=$consulta->fetch_assoc()){
+          $this->img[]=$filas;
+      }
+      return $this->img;
     }
 }
 ?>

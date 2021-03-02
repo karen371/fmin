@@ -31,7 +31,6 @@ switch ($_POST['clave']) {
       echo "Eliminado con exito";
       break;
     }
-    break;
   } catch (Exception $e) {
     echo 'error';
     break;
@@ -47,10 +46,9 @@ switch ($_POST['clave']) {
     else{
       $file->EliminarArchivo($doc);
       $guiaS->eliminarDoc($codNge);
-      echo "Eliminado con exito ".$doc;
+      echo "Eliminado con exito ";
       break;
     }
-    break;
   } catch (Exception $e) {
     echo 'error';
     break;
@@ -60,6 +58,7 @@ switch ($_POST['clave']) {
     $codNgc = $des->get_numGuiaE($_POST['folio']);
     $doc = $_FILES['docE']['name'];
     $tmp = $_FILES['docE']['tmp_name'];
+    //echo $doc;
     $path = '../Archivos/';
     $ext = strtolower(pathinfo($doc, PATHINFO_EXTENSION));
     if($file->ValidarArchivo($ext)){
@@ -67,21 +66,27 @@ switch ($_POST['clave']) {
       $path = $path.strtolower($doc_final);
         if(move_uploaded_file($tmp, $path)){
           $docE = $guia->Documento($codNgc);
-          if($docE == NULL || $docE == ""){
+          if($docE == NULL || $docE == "" || $docE == " "){
             $guia->UpdatedDocumento($codNgc, $path);
              echo "Se ha agregado correctamente";
+             break;
           }
           else{
             $file->EliminarArchivo($docE);
             $guia->UpdatedDocumento($codNgc, $path);
             echo "Se ha agregado correctamente";
+            break;
           }
         }
         else{
           echo "error";
+          break;
         }
     }
-    break;
+    else{
+      echo "error";
+        break;
+    }
   } catch (Exception $e) {
     echo 'error';
     break;
@@ -91,6 +96,7 @@ switch ($_POST['clave']) {
     $codNge = $des->get_numGuiaS($_POST['folio']);
     $doc = $_FILES['doc']['name'];
     $tmp = $_FILES['doc']['tmp_name'];
+    //echo $doc;
     $path = '../Archivos/';
     $ext = strtolower(pathinfo($doc, PATHINFO_EXTENSION));
     if($file->ValidarArchivo($ext)){
@@ -101,20 +107,24 @@ switch ($_POST['clave']) {
           if($docE == NULL || $docE == ""){
             $guiaS->UpdatedDocumento2($codNge, $path);
             echo "Se ha agregado correctamente";
+            break;
           }
           else{
             $file->EliminarArchivo($docE);
             $guiaS->UpdatedDocumento2($codNge, $path);
             echo "Se ha agregado correctamente";
+            break;
           }
         }
         else{
           echo "error";
+            break;
         }
-        break;
     }
-    //echo "hola ".$doc;
-    break;
+    else{
+      echo "error";
+      break;
+    }
   } catch (Exception $e) {
     echo 'error';
     break;
@@ -123,8 +133,5 @@ switch ($_POST['clave']) {
     echo "error";
     break;
 }
-
-
-
 
  ?>

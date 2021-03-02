@@ -25,8 +25,11 @@ $fechaActual = date('Y-m-d');
     <?php include('menu.php');
     ?>
     <div class="container ">
-    <?php
-    $x = ($_GET['codigo']);
+      <div class="row">
+
+
+      <?php
+      $x = ($_GET['codigo']);
 
     if($guiaSali->Existe($x)){
       /*BLOQUEAR EL BOTON DE INGRESAR GUIA*/
@@ -38,7 +41,11 @@ $fechaActual = date('Y-m-d');
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $numS      = $fol ['numsal'];      $nfecha    = $fol ['fesal'];        $estado    = $fol ['estado'];
         $documento = "<a class='btn btn-danger btn-sm' href='../logica/descarga.php?archivos= echo".$guia->Documento($numS)."'>Descargar</a>";
-        $nombreDoc = $guia->NombreDocumento($numS);
+        $numGuiaE  = $guiaSali->get_numGuiaE($x);
+        $docEnt    = $guiaEntra ->NombreDocumento($numGuiaE);
+        $numGuiaS  = $guiaSali-> get_numGuiaS($x);
+        $nombreDoc    = $guia->NombreDocumento($numGuiaS);
+
       }
       ?>
       <div class="row pt-4">
@@ -64,6 +71,8 @@ $fechaActual = date('Y-m-d');
         $solicitud = $fol ['nombre'];      $nombreen  = $fol ['nomencargado']; $apellido  = $fol ['apellido'];
         $estado = $fol ['estado'];         $numS      = '';                    $nfecha    = '';
         $documento = ' ';                  $nombreDoc = '';
+        $numGuiaE  = $guiaSali->get_numGuiaE($x);
+        $docEnt    = $guiaEntra ->NombreDocumento($numGuiaE);
       }
       ?>
       <div class="row pt-4">
@@ -75,7 +84,7 @@ $fechaActual = date('Y-m-d');
                 <div class="btn-group  " role="group" aria-label="Basic example">
                   <a href="ModificarGuia.php?codigo=<?php echo $folio?>" class="btn btn-outline-danger float-left" role="button"><span class="icon-suitcase"></span>Modificar</a>
                   <a class="btn btn-outline-danger float-left" href="RegistrarEgreso.php?codigo=<?php echo $folio?>"><span class="icon-suitcase"></span>Ingresar Guia</a>
-                  <a class="btn btn-outline-danger float-left" href="Inicio.php"><span class="icon-suitcase"></span>Imprimir</a>
+                  <a class="btn btn-outline-danger float-left"  onclick="imprimir()"><span class="icon-suitcase"></span>Imprimir</a>
                 </div>
           </div>
       </div>
@@ -83,6 +92,8 @@ $fechaActual = date('Y-m-d');
     }
 ?>
 <br>
+
+<div class="col-8">
 <div class="mx-auto"> <h2>Detalle Egreso</h2> </div>
   <div class="row">
       <div class="col "> <label class="fw-bold">SC</label> </div>
@@ -132,7 +143,7 @@ $fechaActual = date('Y-m-d');
   </div>
   <div class="row">
     <div class="col"> <label class="fw-bold">Guia de despacho</label> </div>
-    <div class="col"> <label><?php echo $guiaEntra->NombreDocumento($numero) ?></label> </div>
+    <div class="col"> <label><?php echo $docEnt?></label></div>
     <div class="col"> <label>
                             <a class="btn btn-danger btn-sm" href='../logica/descarga.php?archivos=<?php echo $guiaEntra->Documento($numero)?>'>Descargar</a>
                       </label>
@@ -155,10 +166,36 @@ $fechaActual = date('Y-m-d');
       <div class="col"> <label><?php echo $documento ?></label>   </div>
   </div>
   <br>
-</div>
-  </body>
+  </div>
+  <div class="col">
+    <!--IMAGENES-->
+    <?php
+      $imagenes= $guiaSali->MostrarImagen($folio);
+      foreach ($imagenes as  $i){
+      $direccion =  $i['imagen']; $id = $i['codimg']; $descipcion = $i['descripcion'];
+    //  $direccion = ; $codimagen = $i['codimg'];$detalle = ;
+    ?>
+        <div class="card" style="width: 18rem; height: 18rem;">
+          <img src="<?php echo $direccion ?>" class="card-img-top" alt="..." style="width: 250px; height: 200px;">
+          <div class="card-body">
+            <p class="card-text"><?php echo $descipcion ?></p>
+          </div>
+        </div>
+    <?php
+    }
+    ?>
+  </div>
 
+  </div>
+  </div>
+  </body>
   <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function imprimir(){
+if (parseInt(navigator.appVersion)>4)
+  window.print();
+}
+  </script>
   </body>
 </html>
 <!--ARREGLAR LOS BOTONES DE DESCARGAS PONERLOS PRESENTABLES-->

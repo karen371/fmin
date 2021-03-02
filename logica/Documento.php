@@ -3,7 +3,7 @@ class Documento
 {
 
   private $nombre_final;
-  private $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp' , 'pdf' , 'doc' , 'ppt','txt'); // valid extensions
+  private $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp' , 'pdf' , 'doc' , 'ppt','txt', 'docx'); // valid extensions
 
   function __construct()
   {
