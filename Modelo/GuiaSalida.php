@@ -49,7 +49,7 @@ class GuiaSalida
 
   /*NOMBRE DE EL ARCHIVO*/
   public function NombreDocumento($num){
-      $consulta = $this->db->query('SELECT * FROM gdespachoe WHERE codnumero ='.$num);
+      $consulta = $this->db->query('SELECT * FROM gdespachoe WHERE codDe ='.$num);
       if($con = $consulta->fetch_assoc()){
         $path = $con['archivo'];
         $archivo = basename($path);

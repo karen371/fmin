@@ -4,7 +4,7 @@
 
 	 $db;
 
-	$db = Conectar::conexion();
+  	$db = Conectar::conexion();
 	  $consulta=$db->query('SELECT codigo, UCASE(nombre) AS nombre FROM tiposolicitud  ORDER BY nombre ASC;');
 		$html = "<option value='inicio'>Seleccione una Opcion</option>";
 

@@ -1,0 +1,9 @@
+2 vectores con descriptores relevantes para la clasificacion              x    x   x
+  es una variable usando caracteristicas propias del objeto y su clase    x  x x   x
+  si fuera una imagen 							  x  x x x
+  no hace falta                                                              x x
+
+6 amplificar   x x     x  x
+ normalizar    x x x x x
+ utilizar        x     x
+considerar     x     x x  x

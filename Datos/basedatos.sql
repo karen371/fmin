@@ -67,7 +67,6 @@ CREATE TABLE estado(
   PRIMARY KEY (codigo)
 );
 
-
 CREATE TABLE descripcionOT(
   codFolio int(8) AUTO_INCREMENT,
   Estado int(3),
@@ -87,6 +86,15 @@ CREATE TABLE trabajadorOT(
    PRIMARY KEY (codigo, codTrab),
    FOREIGN KEY (codigo) REFERENCES descripcionOT (codFolio),
    FOREIGN KEY (codTrab) REFERENCES trabajador (codtrab)
+);
+
+CREATE TABLE imgOT(
+  codimg int AUTO_INCREMENT,
+  codfolio int (8),
+  imagen varchar(100),
+  descripcion varchar(100),
+  PRIMARY KEY (codimg),
+  FOREIGN KEY (codfolio) REFERENCES descripcionOT (codFolio)
 );
 
 INSERT INTO estadotrab (`nombre`) VALUES ('vinculado');
