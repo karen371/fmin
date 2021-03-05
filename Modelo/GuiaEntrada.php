@@ -10,9 +10,9 @@ class GuiaEntrada
     $this->guia=array();
   }
 /*FALTA INGRESAR DOCUMENTO*/
-  public function InsertGuia($NUMERO, $numcliente, $numsolicitud, $CODIGO, $DETALLE ,$newDate, $codTrabajador){
-        if($this->db->query('INSERT INTO gdespachoc (codnumero, codcliente, TipoSolicitud, codS, descripcion, fecha, encargado,archivo)
-                  VALUES ("'.$NUMERO.'","'.$numcliente.'","'.$numsolicitud.'","'.$CODIGO.'","'.$DETALLE.'","'.$newDate.'","'.$codTrabajador.'"," ")')){
+  public function InsertGuia($NUMERO, $numcliente, $CODIGO, $DETALLE ,$newDate, $codTrabajador){
+        if($this->db->query('INSERT INTO gdespachoc (codnumero, codcliente, codS, descripcion, fecha, encargado,archivo)
+                  VALUES ("'.$NUMERO.'","'.$numcliente.'","'.$CODIGO.'","'.$DETALLE.'","'.$newDate.'","'.$codTrabajador.'","")')){
           return true;
         }
         else{
@@ -20,8 +20,8 @@ class GuiaEntrada
         }
   }
 /*FALTA CAMBIAR EL DOCUMENTO*/ /*revisar el codigo ingresado como codigo guia*/
-  public function Modificar($NUMERO, $numcli, $numsol, $CODIGO, $DETALLE ,$newDate, $numeroguia){
-      if($this->db->query('UPDATE gdespachoc SET codnumero= "'.$NUMERO.'" , codcliente= "'.$numcli.'" , TipoSolicitud= "'.$numsol.'" ,
+  public function Modificar($NUMERO, $numcli,  $CODIGO, $DETALLE ,$newDate, $numeroguia){
+      if($this->db->query('UPDATE gdespachoc SET codnumero= "'.$NUMERO.'" , codcliente= "'.$numcli.'" ,
                 codS= "'.$CODIGO.'", descripcion= "'.$DETALLE.'", fecha= "'.$newDate.'" WHERE codDc= "'.$numeroguia.'"  ')){
         return true;
       }

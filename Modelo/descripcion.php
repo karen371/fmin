@@ -3,6 +3,7 @@ class descripcion_model{
     private $db;
     private $tabla;
     private $img;
+    private $cargo;
 
     public function __construct(){
         $this->db = Conectar::conexion();
@@ -36,8 +37,8 @@ class descripcion_model{
         }
     }
     /*CREA UN NUEVO CAMPO EN LA TABLA descripcionot*/
-    public function Insert($codguia , $Estado){
-       if($this->db->query('INSERT INTO descripcionot (Estado,ngC) VALUES ("'.$Estado.'", "'.$codguia.'")')){
+    public function Insert($codguia , $Estado, $TIPOSOLI){
+       if($this->db->query('INSERT INTO descripcionot (Estado,ngC,TipoSolicitud ) VALUES ("'.$Estado.'", "'.$codguia.'","'.$TIPOSOLI.'")')){
           return true;
         }
         else{
@@ -84,8 +85,8 @@ class descripcion_model{
         }
     }
     /*MODIFICAR ESTADO*/
-    public function modificarDes($folio , $Estado){
-        if($this->db->query('UPDATE descripcionot SET Estado="'.$Estado.'" WHERE codFolio = "'.$folio.'"')){
+    public function modificarDes($folio , $Estado, $TIPOSOLI){
+        if($this->db->query('UPDATE descripcionot SET Estado="'.$Estado.'" WHERE codFolio = "'.$folio.'", TipoSolicitud= "'.$TIPOSOLI.'"')){
           return true;
         }else{
           return false;
@@ -115,6 +116,14 @@ class descripcion_model{
           $this->img[]=$filas;
       }
       return $this->img;
+    }
+
+    public function get_Cargo(){
+      $consulta = $this->db->query('SELECT cod, UCASE(nombre) AS nombre FROM cargo');
+      while($fila = $consulta->fetch_assoc()){
+        $this->cargo[]=$fila;
+      }
+      return $this->cargo;
     }
 }
 ?>

@@ -34,10 +34,10 @@ if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']
        $codNgc = $des->get_numGuiaE($folio);
        /*VERIFICAR DOCUMENOTO DE GUIA DE INGRESO */
           /*Insertar datos  */
-          if($guia->Modificar($NUMERO, $CLIENTE, $TIPOSOLI, $CODIGO, $DETALLE, $newDate, $codNgc) == true){ /*MODIFICAR ESTADO EN DESCRIPCION*/
+          if($guia->Modificar($NUMERO, $CLIENTE, $CODIGO, $DETALLE, $newDate, $codNgc) == true){ /*MODIFICAR ESTADO EN DESCRIPCION*/
            if($codNge >=1){
              if($guiaS->Update($nfecha,$NUMSAL,$des->get_numGuiaS($folio))){
-                 if($des->modificarDes($folio, $Estado)){
+                 if($des->modificarDes($folio, $Estado,$TIPOSOLI)){
                      echo  'Se han Modificado los datos con exito';
                  }
                  else {echo 'invalid';}

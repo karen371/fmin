@@ -20,7 +20,7 @@ class Trabajador
   }
 
   public function Usuario_Valido($usuario, $contraseña){
-      $consulta = $this->db->query('SELECT * FROM trabajador WHERE rutTrab = "'.$usuario.'" and contrasena= "'.$contraseña.'" and ConEstab = 1');
+      $consulta = $this->db->query('SELECT * FROM trabajador WHERE Usuario = "'.$usuario.'" and contrasena= "'.$contraseña.'" and ConEstab = 1');
       if($usu = $consulta->fetch_assoc()){
          return true;
       }
@@ -30,13 +30,20 @@ class Trabajador
   }
 
   public function get_Usuario($usuario, $contraseña){
-      $consulta = $this->db->query('SELECT * FROM trabajador WHERE rutTrab = "'.$usuario.'" and contrasena= "'.$contraseña.'" and ConEstab = 1');
+      $consulta = $this->db->query('SELECT * FROM trabajador WHERE Usuario = "'.$usuario.'" and contrasena= "'.$contraseña.'" and ConEstab = 1');
       while($usu = $consulta->fetch_assoc()){
          $this->usuario[]=$usu;
       }
       return $this->usuario;
   }
+  public function insert_Usuario($rut,$nombre,$apellido,$contrasena,$usuario,$cod){
+    if($this->db->query('INSERT INTO trabajador (rutTrab, nombre, apellido, contrasena, ConEstab, Usuario, cod) VALUES ("'.$rut.'","'.$nombre.'","'.$apellido.'","'.$contrasena.'",1,"'.$usuario.'","'.$cod.'")')){
+        return true;
+    }
+    else{
+        return false;
+    }
+  }
 
 }
-
  ?>

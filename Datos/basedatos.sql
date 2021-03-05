@@ -1,8 +1,8 @@
-CREATE DATABASE FMIN2;
+CREATE DATABASE FMIN3;
 
 CREATE TABLE TipoSolicitud (
     codigo int(3) AUTO_INCREMENT,
-    nombre varchar(20),
+    nombre varchar(50),
     PRIMARY KEY (codigo)
 );
 
@@ -39,6 +39,7 @@ CREATE TABLE trabajador(
   apellido varchar(20),
   contrasena varchar(10),
   ConEstab int(3),
+  Usuario varchar(20)
   cod int(3),
   PRIMARY KEY(codtrab),
   FOREIGN KEY (ConEstab) REFERENCES EstadoTrab (ConEstab),
@@ -49,15 +50,13 @@ CREATE TABLE GdespachoC (
   codDc int(8) AUTO_INCREMENT,
   codnumero int(10),
   codcliente int(8),
-  TipoSolicitud int(3),
   codS varchar(20),
-  descripcion varchar(500),
+  descripcion varchar(700),
   fecha varchar(10),
   encargado int(3),
   archivo varchar(100),
   PRIMARY KEY (codDc),
   FOREIGN KEY (codcliente) REFERENCES cliente (codcliente),
-  FOREIGN KEY (TipoSolicitud) REFERENCES TipoSolicitud(codigo),
   FOREIGN KEY (encargado) REFERENCES trabajador(codtrab)
 );
 
@@ -70,23 +69,16 @@ CREATE TABLE estado(
 CREATE TABLE descripcionOT(
   codFolio int(8) AUTO_INCREMENT,
   Estado int(3),
-  observacion text,
+  TipoSolicitud int(3),
   ngC int(10),
   ngE int(10),
   PRIMARY KEY (codFolio),
   FOREIGN KEY (ngC) REFERENCES GdespachoC (codDc),
   FOREIGN KEY (ngE) REFERENCES GdespachoE (codDe),
+  FOREIGN KEY (TipoSolicitud) REFERENCES TipoSolicitud(codigo),
   FOREIGN KEY (Estado) REFERENCES estado (codigo)
 );
 
-CREATE TABLE trabajadorOT(
-   codigo int(8),
-   codTrab int(3),
-   horas integer,
-   PRIMARY KEY (codigo, codTrab),
-   FOREIGN KEY (codigo) REFERENCES descripcionOT (codFolio),
-   FOREIGN KEY (codTrab) REFERENCES trabajador (codtrab)
-);
 
 CREATE TABLE imgOT(
   codimg int AUTO_INCREMENT,
@@ -103,11 +95,12 @@ INSERT INTO estadotrab(`nombre`) VALUES ('desviculado');
 INSERT INTO cargo (`nombre`) VALUES ('administrador');
 INSERT INTO cargo (`nombre`) VALUES ('encargado');
 
-INSERT INTO `trabajador`(rutTrab, nombre, apellido, contrasena, ConEstab, cod)
-VALUES ('1-3','Nicolas','Varas','1234','1','1');
+INSERT INTO `trabajador`( nombre, apellido, contrasena, ConEstab, Usuario, cod)
+VALUES ('Nicolas','Varas','1234','1','admin1','1');
 
-INSERT INTO `trabajador`(rutTrab, nombre, apellido, contrasena, ConEstab, cod)
-VALUES ('1-44','Sebastian','Solis','1234','2','1');
+INSERT INTO `trabajador`( nombre, apellido, contrasena, ConEstab, Usuario, cod)
+VALUES ('Sebastian','Solis','1234','2','admin2','1');
+
 
 INSERT INTO cliente (nomcliente) VALUES ('Cia Minera Centinela Oxido');
 INSERT INTO cliente (nomcliente) VALUES ('Cia Minera Centinela Oxe');
@@ -184,13 +177,13 @@ INSERT INTO estado (nombre) VALUES ('Enviada');
 CREATE VIEW descripcion  AS
 SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido, est.nombre AS estado
 FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab, estado AS est
-WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND   d.Estado = est.codigo
+WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND d.Estado = est.codigo
 ORDER BY D.codFolio DESC LIMIT 15;
 
 CREATE VIEW descripcionTodo AS
 SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre as nomencargado, tab.apellido, est.nombre AS estado
 FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t , trabajador AS tab, estado AS est
-WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND   d.Estado = est.codigo  ORDER BY D.codFolio;
+WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo AND gc.encargado = tAB.codtrab AND   d.Estado = est.codigo  ORDER BY D.codFolio;
 
 
 DELIMITER $$
@@ -198,33 +191,34 @@ CREATE PROCEDURE busqueda(in folio int(8))
 BEGIN
 SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, e.nombre as estado
 FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
-WHERE d.codFolio = folio AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and d.Estado = e.codigo
+WHERE d.codFolio = folio AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and d.Estado = e.codigo;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-  CREATE PROCEDURE busquedas(in num int(8))
-    BEGIN
-      SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido
-      FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab
-      WHERE d.codFolio = num or gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab;
-    END $$
-  DELIMITER ;
+CREATE PROCEDURE busquedas(in num int(8))
+BEGIN
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab
+WHERE d.codFolio = num or gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab;
+END $$
+DELIMITER ;
 
-  DELIMITER $$
-  CREATE PROCEDURE descripcion(in num int(8))
-    BEGIN
-    SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, g.codnumero as numsal, g.fecha as fesal, e.nombre as estado
-    FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, gdespachoe as g, Estado as e
-    WHERE d.codFolio = 8 AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and ngE= g.codDe and d.Estado = e.codigo;
-    END $$
-  DELIMITER ;
+DELIMITER $$
+CREATE PROCEDURE descripcion(in num int(8))
+BEGIN
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, g.codnumero as numsal, g.fecha as fesal, e.nombre as estado
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, gdespachoe as g, Estado as e
+WHERE d.codFolio = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and ngE= g.codDe and d.Estado = e.codigo
+END$$
+DELIMITER ;
 
-  DELIMITER $$
-  CREATE PROCEDURE busquedaGuia (in num int(8))
-  BEGIN
-  SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, e.nombre
-    FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
-    WHERE gc.codnumero = 1253 AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo and gc.encargado = tab.codtrab AND d.Estado = e.codigo;
-  END $$
-  DELIMITER;
+
+DELIMITER $$
+CREATE PROCEDURE busquedaGuia(in num int(8))
+BEGIN
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, e.nombre
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
+WHERE gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo and gc.encargado = tab.codtrab AND d.Estado = e.codigo;
+END$$
+DELIMITER ;

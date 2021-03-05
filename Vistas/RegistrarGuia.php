@@ -302,7 +302,7 @@ $fechaActual = date('Y-m-d');
                 });
                 refresh('#modalFormCli');
               }
-                 }
+            }
             /*---------------REFRESCAR LOS SELECT (CLIENTE, SOLICITUD Y ESTADO)---------------*/
             function refresh(modal){
                 $(modal).on('hidden.bs.modal', function (e) {

@@ -97,8 +97,9 @@ $buscar = new Busqueda();
         }
       }
        ?>
-          </tbody>
-        </table>
+        </tbody>
+      </table>
     </div>
+    <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
   </body>
 </html>

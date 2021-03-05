@@ -11,6 +11,27 @@ $des         = new descripcion_model();
 //$valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp' , 'pdf' , 'doc' , 'ppt','txt');
 $path = '../Archivos/';
 
+//echo $_POST['numero'].' '.$_POST['fecha2'].' '.$_POST['folio'];
+
+if($_POST['numero'] == ' ' || $_POST['fecha2'] == ' '){
+   echo "vacio";
+}
+else{
+  $numS  = $_POST['numero'];
+  $fecha = $_POST['fecha2'];
+  $folio = $_POST['folio'];
+  $newDate  = date("d-m-Y", strtotime($fecha));
+  if($guiaS->InsertGuia($newDate,$numS,'')){
+      /*sacar el codigo de la guia para ingresarle a la tabla descripcion*/
+      $num = $guiaS->get_codMaximo ();
+      $des-> Modificar($folio, $num );
+      echo 'Datos ingresados con exito';
+  }
+  else{ echo 'error'; }
+}
+
+
+/*
 if($_POST['numero'] == '' || $_POST['fecha'] == ''){
   $jsondata['mensaje'] = "vacio";
 }
@@ -27,9 +48,9 @@ else{
       $doc_final= $numS.''.$doc;
       $path = $path.strtolower($doc_final);
       if(move_uploaded_file($tmp,$path)){
-        if($guiaS->InsertGuia($newDate,$numS,$path)){
+        if($guiaS->InsertGuia($newDate,$numS,$path)){*/
           /*sacar el codigo de la guia para ingresarle a la tabla descripcion*/
-            $num = $guiaS->get_codMaximo ();
+    /*        $num = $guiaS->get_codMaximo ();
             $des-> Modificar($folio, $num );
             $jsondata['mensaje']= 'Datos ingresados con exito';
           }
@@ -41,7 +62,7 @@ else{
     }
     else{
       $jsondata['mensaje'] = 'falla';
-    }
+    }*/
     /*if($file->ValidarArchivos($ext)){
       $doc_final = $numS.''.$doc;
       $path = $path.strtolower($doc_final);
@@ -56,7 +77,7 @@ else{
   //  else{$jsondata['mensaje'] = 'error';}
 
   //
-}
-header("Content-Type: application/json", true);
- echo json_encode($jsondata);
+//}
+/*header("Content-Type: application/json", true);
+ echo json_encode($jsondata);*/
 ?>

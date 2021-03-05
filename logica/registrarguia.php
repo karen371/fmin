@@ -33,14 +33,14 @@ else{
         $Estado  = $_POST['estado'];   $newDate = date("d-m-Y", strtotime($FECHA));
         $codTrab = $trabajador->get_codigo($NOMEN, $APELEN);
         /*Insertar datos  */
-        if($guia->InsertGuia($NUMERO, $CLIENTE, $TIPOSOLI, $CODIGO, $DETALLE ,$newDate, $codTrab ) == true){
+        if($guia->InsertGuia($NUMERO, $CLIENTE, $CODIGO, $DETALLE ,$newDate, $codTrab ) == true){
           /*SACAL EL NUMERO MAXIMO DE LA GUIA*/
           try {
             $MaxGuia = $guia->get_codMaximo();
           }catch (Exception $e) {
             $jsondata['mensaje'] = "error";
           }
-          if($des->Insert($MaxGuia, $Estado) == true){
+          if($des->Insert($MaxGuia, $Estado,$TIPOSOLI) == true){
             $MaxFolio = $des->get_codMaximo();
              $jsondata['mensaje'] = 'Se han ingresado los datos con exito, el  codigo SC es: '.$MaxFolio;
           }

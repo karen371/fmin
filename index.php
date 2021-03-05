@@ -44,7 +44,7 @@
           <div  class="form" >
             <form id="ingresar" >
               <label for="Usuario"></label>
-              <input id="user" name="user"  type="text"  placeholder="Ingrese su rut" required>
+              <input id="user" name="user"  type="text"  placeholder="Ingrese su usuario" required>
               <label for="Contraseña"></label>
               <input id="pass" name="pass"  type="password" placeholder="Contraseña" required>
               <input type="submit" id="submit" value="Iniciar Sesión">
