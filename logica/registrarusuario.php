@@ -16,7 +16,22 @@ session_start();
 
 $trabajador= new Trabajador();
 
-echo 'hola';
+
+if($_POST['cargo'] == 'inicio' || $_POST['contrasena'] == '' || $_POST['usuario'] == ''){
+    echo 'error';
+}else{
+
+  $rut = $_POST['rut']; $nombre = $_POST['nombre']; $apellido = $_POST['apellido'];
+   $usuario =  $_POST['usuario'];$contrasena = $_POST['contrasena']; $cargo = $_POST['cargo'];
+    if($trabajador->insert_Usuario($rut,$nombre,$apellido,$contrasena,$usuario,$cargo)){
+        echo 'Se ha registrado con exito';
+    }
+    else{
+        echo 'error';
+    }
+
+}
+
 
 
  ?>

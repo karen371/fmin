@@ -72,7 +72,7 @@
                  switch(data.codigo)
                  {
                      case 1:
-                      location.href ="Vistas/Inicio.php";
+                     location.href ="Vistas/Inicio.php";                      
                      break;
                      case 2:
                         alert(data.mensaje);

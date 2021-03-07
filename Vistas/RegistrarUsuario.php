@@ -46,7 +46,7 @@ require_once("../Controller/ControladorCargo.php");
         <div class="row mb-3">
           <label for="contrasena" class="col-sm-3 col-form-label">Contraseña</label>
           <div class="col-sm-9">
-            <input  class="form-control" type="text" id="contrasena" name="contrasena" required>
+            <input  class="form-control" type="password" id="contrasena" name="contrasena" required>
           </div>
         </div>
         <div class="row mb-3">
@@ -89,16 +89,21 @@ require_once("../Controller/ControladorCargo.php");
          formData.append("usuario", $("#usuario").val());
          formData.append("contrasena", $("#contrasena").val());
          formData.append("cargo", $("#cargo").val());
-         alert();
-      $.ajax({
-       url: "..logica/registrarusuario.php",
-       type: "POST",
-       data: formData,
-       success: function(data)
-       {
-         alert('hola');
-       }
-     });
+
+         $.ajax({
+           url: "../logica/registrarusuario.php",
+           type: "POST",
+           data: formData,
+           contentType: false,
+           cache: false,
+           processData:false,
+           success: function(data){
+             if(data == 'error'){
+               alert('campos vacios');
+             }
+             else{ alert(data)}
+           }
+         });
      e.preventDefault();
     }));
     </script>

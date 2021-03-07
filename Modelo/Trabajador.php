@@ -36,6 +36,16 @@ class Trabajador
       }
       return $this->usuario;
   }
+
+  public function cargo($usuario, $contraseña){
+      $consulta = $this->db->query('SELECT * FROM `trabajador` WHERE `Usuario` = '".$usuario."' and `contrasena` = '".$contrasena."'');
+      while($usu = $consulta->fetch_assoc()){
+         $this->usuario[]=$usu;
+      }
+      return $this->usuario;
+
+  }
+
   public function insert_Usuario($rut,$nombre,$apellido,$contrasena,$usuario,$cod){
     if($this->db->query('INSERT INTO trabajador (rutTrab, nombre, apellido, contrasena, ConEstab, Usuario, cod) VALUES ("'.$rut.'","'.$nombre.'","'.$apellido.'","'.$contrasena.'",1,"'.$usuario.'","'.$cod.'")')){
         return true;
