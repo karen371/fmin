@@ -96,10 +96,7 @@ INSERT INTO cargo (`nombre`) VALUES ('administrador');
 INSERT INTO cargo (`nombre`) VALUES ('encargado');
 
 INSERT INTO `trabajador`( nombre, apellido, contrasena, ConEstab, Usuario, cod)
-VALUES ('Nicolas','Varas','1234','1','admin1','1');
-
-INSERT INTO `trabajador`( nombre, apellido, contrasena, ConEstab, Usuario, cod)
-VALUES ('Sebastian','Solis','1234','2','admin2','1');
+VALUES ('Jorge','Vilches','1234','1','admin1','1');
 
 
 INSERT INTO cliente (nomcliente) VALUES ('Cia Minera Centinela Oxido');
@@ -193,15 +190,6 @@ SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.
 FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
 WHERE d.codFolio = folio AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and d.Estado = e.codigo;
 END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE busquedas(in num int(8))
-BEGIN
-SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido
-FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab
-WHERE d.codFolio = num or gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND gc.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab;
-END $$
 DELIMITER ;
 
 DELIMITER $$
