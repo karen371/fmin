@@ -6,11 +6,6 @@
     require_once('../Modelo/GuiaEntrada.php');
     require_once('../Modelo/descripcion.php');
 
-
-
-
-
-
     $busqueda  = new Busqueda();
     $guiaSali  = new descripcion_model();
     $guiaEntra = new GuiaEntrada();
@@ -28,9 +23,6 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-
     <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
     <link rel="stylesheet" href="../css/Stylemenu.css" type="text/css">
@@ -77,7 +69,7 @@
                 <div class="col-7">
                   <div class="btn-group  " role="group" aria-label="Basic example">
                     <a href="ModificarGuia.php?codigo=<?php echo $folio?>" class="btn btn-outline-danger float-left " role="button" ><span class="icon-suitcase"></span>Modificar</a>
-                    <a class="btn btn-outline-danger float-left disabled" data-bs-toggle="modal" data-bs-target="#modalFormEgreso" aria-disabled="true"><span class="icon-suitcase"></span>Ingresar Guia</a>
+                    <a class="btn btn-outline-danger float-left disabled" data-bs-toggle="modal" data-bs-target="#modalFormEgreso" aria-disabled="true"><span class="icon-suitcase"></span>Ingresar Guia Despacho</a>
                     <a class="btn btn-outline-danger float-left"  onclick="imprimirSeccion()"><span class="icon-suitcase"></span>Imprimir</a>
                   </div>
                 </div>
@@ -109,7 +101,7 @@
                 <div class="col-7">
                   <div class="btn-group  " role="group" aria-label="Basic example">
                     <a href="ModificarGuia.php?codigo=<?php echo $folio?>" class="btn btn-outline-danger float-left" role="button"><span class="icon-suitcase"></span>Modificar</a>
-                    <a class="btn btn-outline-danger float-left" data-bs-toggle="modal" data-bs-target="#modalFormEgreso"><span class="icon-suitcase"></span>Ingresar Guia</a>
+                    <a class="btn btn-outline-danger float-left" data-bs-toggle="modal" data-bs-target="#modalFormEgreso"><span class="icon-suitcase"></span>Ingresar Guia Despachos</a>
                     <a class="btn btn-outline-danger float-left"  onclick=" imprimirSeccion()"><span class="icon-suitcase"></span>Imprimir</a>
                   </div>
                 </div>
@@ -212,7 +204,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ingresar cliente</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Ingresar Guia Despacho</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
