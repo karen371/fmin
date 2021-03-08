@@ -6,6 +6,11 @@
     require_once('../Modelo/GuiaEntrada.php');
     require_once('../Modelo/descripcion.php');
 
+
+
+
+
+
     $busqueda  = new Busqueda();
     $guiaSali  = new descripcion_model();
     $guiaEntra = new GuiaEntrada();
@@ -23,6 +28,8 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 
     <link rel="stylesheet" href="../bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
@@ -294,12 +301,15 @@
             try {
               $db = Conectar::conexion();
               $consulta=$db->query('SELECT * FROM imgot WHERE codfolio ='.$folio);
+              echo '<br><br><br><br><br><br><br><br><h3>Imagenes</h3>';
+              echo "<table>";
               while ($row = $consulta->fetch_assoc()) {
-                echo "<div class='row'>";
-                echo "<div class='col'><img class='d-block w-20' src='".$row['imagen']."' alt='".$row['descripcion']."'></div>";
-                echo "<div class='col'><p>".$row['descripcion']."</p></div>";
-                echo "</div>";
+                echo "<tr>";
+                echo "<td style='width: 300px; height: 250px;'><img class='d-block w-20' src='".$row['imagen']."' alt='".$row['descripcion']." style='width: 100px; height: 100px;'></td>";
+                echo "<td style='width: 300px; height: 250px;'><p>".$row['descripcion']."</p></td>";
+                echo "</tr>";
               }
+              echo "</table>";
             }catch (Exception $e) {
               echo 'Error al mostrar la imagen';
             }

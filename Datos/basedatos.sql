@@ -222,3 +222,12 @@ FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, tra
 WHERE gc.codnumero = num AND d.ngC = gc.codDc and gc.codcliente = c.codcliente AND d.TipoSolicitud = t.codigo and gc.encargado = tab.codtrab AND d.Estado = e.codigo;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE busquedacliente(in nombre varchar(50))
+BEGIN
+SELECT d.codFolio, gc.codnumero, gc.codS, t.nombre, gc.descripcion, gc.fecha, c.nomcliente, tab.nombre As nomencargado, tab.apellido, e.nombre as estado
+FROM descripcionot AS d, gdespachoc AS gc, cliente AS c, tiposolicitud AS t, trabajador AS tab, estado as e
+WHERE d.ngC = gc.codDc and gc.codcliente = c.codcliente and c.nomcliente = nombre AND d.TipoSolicitud = t.codigo AND gc.encargado = tab.codtrab and d.Estado = e.codigo;
+END$$
+DELIMITER ;

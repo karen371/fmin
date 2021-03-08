@@ -9,6 +9,7 @@
  require_once('../Modelo/Estado.php');
  require_once('../Modelo/descripcion.php');
  require_once('Documento.php');
+
  $des         = new descripcion_model();
  $guia        = new GuiaEntrada();
  $guiaS       = new GuiaSalida();

@@ -32,6 +32,14 @@ class Busqueda{
         }
         return $this->Tabla;
     }
+    /*BUSQUEDA POR CLIENTE*/
+    public function BuscarCliente($nombre){
+        $consulta = $this->db->query('CALL busquedacliente ("'.$nombre.'");');
+        if($fila = $consulta->fetch_assoc()){
+            $this->Tabla[] = $fila;
+        }
+        return $this->Tabla;
+    }
     /*BUSCAR SI EXISTE */
     public function ExisteFolio($num){
         $consulta = $this->db->query('SELECT * FROM descripcionOT WHERE codFolio = "'.$num.'"');
@@ -51,5 +59,17 @@ class Busqueda{
           return false;
         }
     }
+    /*VER LA GUIA QUES SE ESTA BUSCANDO */
+    public function ExisteCliente ($nombre){
+        $consulta = $this->db->query('SELECT * FROM `cliente` WHERE `nomcliente` = "'.$nombre.'" ');
+        if($filas = $consulta->fetch_assoc()){
+            return true;
+        }
+        else{
+          return false;
+        }
+    }
+
+
 }
 ?>

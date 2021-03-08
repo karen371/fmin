@@ -20,7 +20,7 @@ class Trabajador
   }
 
   public function Usuario_Valido($usuario, $contraseña){
-      $consulta = $this->db->query('SELECT * FROM trabajador WHERE Usuario = "'.$usuario.'" and contrasena= "'.$contraseña.'" and ConEstab = 1');
+      $consulta = $this->db->query('SELECT * FROM `trabajador` WHERE `Usuario` = "'.$usuario.'" and `contrasena` = "'.$contraseña.'" and `ConEstab` = 1');
       if($usu = $consulta->fetch_assoc()){
          return true;
       }
@@ -38,7 +38,7 @@ class Trabajador
   }
 
   public function cargo($usuario, $contraseña){
-      $consulta = $this->db->query('SELECT * FROM `trabajador` WHERE `Usuario` = '".$usuario."' and `contrasena` = '".$contrasena."'');
+      $consulta = $this->db->query('SELECT * FROM trabajador WHERE Usuario = "'.$usuario.'" and contrasena = "'.$contrasena.'"');
       while($usu = $consulta->fetch_assoc()){
          $this->usuario[]=$usu;
       }
