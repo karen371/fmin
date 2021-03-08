@@ -132,6 +132,14 @@ $fechaActual = date('Y-m-d');
               <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
               <div class="col-sm-8">
                 <select class="form-select" id="cliente" name="cliente">
+                  <option value='inicio'>Seleccione una Opcion</option>
+                   <?php
+                   var_dump($datos);
+                   foreach ($datos as $key => $dato) {?>
+                      <option value="<?php echo  $dato['codcliente']?>"><?php echo $dato['nomcliente']?></option>
+                   <?php }?>
+                </select>
+            <!--    <select class="form-select" id="cliente" name="cliente">
                   <option value="inicio">Seleccione una Opcion</option>
                   <?php
                   foreach ($datos as  $dato) {
@@ -142,7 +150,7 @@ $fechaActual = date('Y-m-d');
                       ?> <option value="<?php echo $dato['codcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
                     }
                   } ?>
-                </select>
+                </select>-->
               </div>
             </div>
             <!--SOLICITUDES-->
@@ -150,6 +158,11 @@ $fechaActual = date('Y-m-d');
               <label for="solicitud" class="col-sm-3 col-form-label">Solicitud</label>
               <div class="col-sm-8">
                 <select class="form-select" id="solicitud" name="solicitud">
+                  <option value='inicio'>Seleccione una Opcion</option>
+                  <?php foreach ($data as $key => $s) {?>
+                    <option value="<?php echo $s['codigo']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
+                </select>
+              <!--  <select class="form-select" id="solicitud" name="solicitud">
                   <option value="inicio">Seleccione una Opcion</option>
                   <?php
                   foreach ($data as  $s) {
@@ -160,7 +173,7 @@ $fechaActual = date('Y-m-d');
                       ?><option value="<?php echo $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
                     }
                   } ?>
-                </select>
+                </select>-->
               </div>
             </div>
             <!--ESTADO-->
@@ -168,6 +181,12 @@ $fechaActual = date('Y-m-d');
                <label for="estado" class="col-sm-3 col-form-label">Estado</label>
                <div class="col-sm-8">
                  <select class="form-select" id="estado" name="estado">
+                   <option value='inicio'>Seleccione una Opcion</option>
+                   <?php foreach ($state as $estado) {?>
+                       <option value="<?php echo $estado['codigo'] ?>"><?php echo $estado['nombre'] ?></option>
+                   <?php };?>
+                 </select>
+                <!-- <select class="form-select" id="estado" name="estado">
                     <option value="inicio">Seleccione una Opcion</option>
                     <?php
                       foreach ($state as $estado) {
@@ -179,7 +198,7 @@ $fechaActual = date('Y-m-d');
                         }
                       }
                      ?>
-                 </select>
+                 </select>-->
                </div>
              </div>
              <!--DETALLE INGRESO-->
@@ -388,8 +407,8 @@ $fechaActual = date('Y-m-d');
            else
            {
              alert(data);
-             $("#ingresar")[0].reset();
-             location.href ="Inicio.php";
+          //   $("#ingresar")[0].reset();
+            // location.href ="Inicio.php";
            }
          },
          error: function(e)

@@ -86,7 +86,7 @@ class descripcion_model{
     }
     /*MODIFICAR ESTADO*/
     public function modificarDes($folio , $Estado, $TIPOSOLI){
-        if($this->db->query('UPDATE descripcionot SET Estado="'.$Estado.'" WHERE codFolio = "'.$folio.'", TipoSolicitud= "'.$TIPOSOLI.'"')){
+        if($this->db->query('UPDATE descripcionot SET Estado="'.$Estado.'", TipoSolicitud= "'.$TIPOSOLI.'" WHERE codFolio = "'.$folio.'"')){
           return true;
         }else{
           return false;

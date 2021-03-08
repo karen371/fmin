@@ -19,8 +19,9 @@ $guiaS       = new GuiaSalida();
 $state       = new Estado();
 $file        = new Documento();
 
+//echo $_POST['cliente'];
 
-if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']) || !empty($_POST['detalle']) ||
+if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_POST['detalle']) ||
  !empty($_POST['fecha']) || !empty($_POST['cliente']) || !empty($_POST['solicitud']) ){
 
        $NUMERO   = $_POST['numero'];    $CODIGO   = $_POST['codigo'];     $FECHA    = $_POST['fecha'];
@@ -34,47 +35,24 @@ if(!empty($_POST['numero']) || !empty($_POST['codigo']) || !empty($_FILES['doc']
        $codNgc = $des->get_numGuiaE($folio);
        /*VERIFICAR DOCUMENOTO DE GUIA DE INGRESO */
           /*Insertar datos  */
-          if($guia->Modificar($NUMERO, $CLIENTE, $CODIGO, $DETALLE, $newDate, $codNgc) == true){ /*MODIFICAR ESTADO EN DESCRIPCION*/
+          if($guia->Modificar($NUMERO, $CLIENTE, $CODIGO, $DETALLE, $newDate, $codNgc) == true){
            if($codNge >=1){
              if($guiaS->Update($nfecha,$NUMSAL,$des->get_numGuiaS($folio))){
                  if($des->modificarDes($folio, $Estado,$TIPOSOLI)){
                      echo  'Se han Modificado los datos con exito';
                  }
-                 else {echo 'invalid';}
+                 else {echo 'invalid2';}
              }
              else{echo 'error';}
            }
            else{
-             if($des->modificarDes($folio, $Estado)){
+             if($des->modificarDes($folio, $Estado,$TIPOSOLI)){
                  echo  'Se han Modificado los datos con exito';
              }
-             else {echo 'invalid';}
-             echo 'no entre';
+             else {echo 'invalid1';}
            }
          }
          else{echo 'error';}
 }
-
-/*  if($codNge>0){
-    if($guiaS->Update($nfecha,$NUMSAL,$des->get_numGuiaS($folio))){
-        if($des->modificarDes($folio, $Estado)){
-            echo  'Se han Modificado los datos con exito';
-        }
-        else {echo 'invalid';}
-    }
-    else{echo 'error';}
-  }else{
-    if($des->modificarDes($folio, $Estado)){
-        echo  'Se han Modificado los datos con exito';
-    }
-    else {echo 'invalid';}
-  }
-  /*    else{
-     if($guiaS->InsertGuia($nfecha,$NUMSAL)){
-          $num = $guiaS->get_codMaximo ();
-          $des-> Modificar($folio, $num );
-          echo 'Se han Modificado los datos con exito';
-      }else{echo 'error';}
- }*/
 
  ?>
