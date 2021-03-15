@@ -16,7 +16,7 @@ session_start();
    </head>
   <body> <!--SOLO MUESTRA LOS 15 ULTIMOS INGRESOS-->
       <div class="Separacion"></div>
-      <?php include('Tabla.php'); ?>
+      <?php include('Tablacompleta.php'); ?>
       <br><br>
   </body>
   <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>

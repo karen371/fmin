@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 require_once("../Datos/Connection.php");
 require_once("../Modelo/descripcion.php");
 
@@ -13,16 +12,14 @@ $des = new descripcion_model();
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/StyleMenu.css">
     <link rel="stylesheet"  href="../bootstrap-5.0.0-beta2-dist/CSS/bootstrap.min.css">
+    <link rel="stylesheet"  href="../css/datatables.min.css">
     <title></title>
   </head>
   <body>
-    <header>
-        <?php  include('menu.php');?>
-    </header>
         <h2></h2>
         <div class="container">
 
-            <table class="table table-hover">
+        <table id="example" class="table table-hover" style="width:100%">
             <thead class="table-danger">
             <tr>
               <th>SC</th>
@@ -77,6 +74,33 @@ $des = new descripcion_model();
          <footer></footer>
         </table>
         </div>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
+        <script src="../bootstrap-5.0.0-beta2-dist/js/datatables.min.js"></script>
+        <script>
+        $(document).ready(function() {
+        $('#example').DataTable( {
+          "language": {
+            "lengthMenu": "Numero de filas _MENU_ ",
+            "zeroRecords": "Sin Registros - lo sentimos",
+            "info": "Pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros disponibles",
+            "infoFiltered": "(filtados _MAX_ total de registros)"
+         },
+            "columnDefs": [
+                {
+                    "targets": [ 2 ],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [ 3 ],
+                    "visible": false
+                }
+            ]
+          } );
+        } );
+        </script>
   </body>
 </html>

@@ -28,11 +28,11 @@
         </a>
       </li>
     </ul>
-    <form class="d-flex" action="Busqueda.php" method="GET">
+<!--    <form class="d-flex" action="Busqueda.php" method="GET">
       <span class="input-group-text fa fa-search bg-danger border-danger" id="basic-addon1"></span>
       <input class="form-control me-2"  type="text" name="Search" id="Search" aria-label="Search" placeholder="Search..." />
       <input type="submit" name="button" class="btn btn-outline-light" value="Search"/>
-    </form>
+    </form>-->
     </div>
   </div>
 </nav>

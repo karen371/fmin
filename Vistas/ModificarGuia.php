@@ -131,15 +131,15 @@ $fechaActual = date('Y-m-d');
             <div class="row mb-4">
               <label for="cliente" class="col-sm-3 col-form-label">Cliente</label>
               <div class="col-sm-8">
-                <select class="form-select" id="cliente" name="cliente">
+            <!--    <select class="form-select" id="cliente" name="cliente">
                   <option value='inicio'>Seleccione una Opcion</option>
                    <?php
                    var_dump($datos);
                    foreach ($datos as $key => $dato) {?>
                       <option value="<?php echo  $dato['codcliente']?>"><?php echo $dato['nomcliente']?></option>
                    <?php }?>
-                </select>
-            <!--    <select class="form-select" id="cliente" name="cliente">
+                </select>-->
+                <select class="form-select" id="cliente" name="cliente">
                   <option value="inicio">Seleccione una Opcion</option>
                   <?php
                   foreach ($datos as  $dato) {
@@ -150,19 +150,19 @@ $fechaActual = date('Y-m-d');
                       ?> <option value="<?php echo $dato['codcliente'] ?>"><?php echo $dato['nomcliente'] ?></option>?> <?php
                     }
                   } ?>
-                </select>-->
+                </select>
               </div>
             </div>
             <!--SOLICITUDES-->
             <div class="row mb-4">
               <label for="solicitud" class="col-sm-3 col-form-label">Solicitud</label>
               <div class="col-sm-8">
-                <select class="form-select" id="solicitud" name="solicitud">
+              <!--   <select class="form-select" id="solicitud" name="solicitud">
                   <option value='inicio'>Seleccione una Opcion</option>
                   <?php foreach ($data as $key => $s) {?>
                     <option value="<?php echo $s['codigo']  ?>"><?php echo $s['nombre'] ?></option><?php }?>
-                </select>
-              <!--  <select class="form-select" id="solicitud" name="solicitud">
+                </select>-->
+               <select class="form-select" id="solicitud" name="solicitud">
                   <option value="inicio">Seleccione una Opcion</option>
                   <?php
                   foreach ($data as  $s) {
@@ -173,20 +173,20 @@ $fechaActual = date('Y-m-d');
                       ?><option value="<?php echo $s['codigo']?>"><?php echo $s['nombre'] ?></option><?php
                     }
                   } ?>
-                </select>-->
+                </select>
               </div>
             </div>
             <!--ESTADO-->
             <div class="row mb-4">
                <label for="estado" class="col-sm-3 col-form-label">Estado</label>
                <div class="col-sm-8">
-                 <select class="form-select" id="estado" name="estado">
+              <!--   <select class="form-select" id="estado" name="estado">
                    <option value='inicio'>Seleccione una Opcion</option>
                    <?php foreach ($state as $estado) {?>
                        <option value="<?php echo $estado['codigo'] ?>"><?php echo $estado['nombre'] ?></option>
                    <?php };?>
-                 </select>
-                <!-- <select class="form-select" id="estado" name="estado">
+                 </select>-->
+                 <select class="form-select" id="estado" name="estado">
                     <option value="inicio">Seleccione una Opcion</option>
                     <?php
                       foreach ($state as $estado) {
@@ -198,7 +198,7 @@ $fechaActual = date('Y-m-d');
                         }
                       }
                      ?>
-                 </select>-->
+                 </select>
                </div>
              </div>
              <!--DETALLE INGRESO-->
@@ -377,16 +377,24 @@ $fechaActual = date('Y-m-d');
     <script src="../bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-      function agregar(){
-        alert('hola');
-      }
 
       $(document).ready(function (e) {
       $("#ingresar").on('submit',(function(e) {
+        var formData = new FormData();
+            formData.append("folio", $("#folio").val());
+            formData.append("numero", $("#numero").val());
+            formData.append("codigo", $("#codigo").val());
+            formData.append("fecha", $("#fecha").val());
+            formData.append("cliente", $("#cliente").val());
+            formData.append("solicitud", $("#solicitud").val());
+            formData.append("estado", $("#estado").val());
+            formData.append("detalle", $("#detalle").val());
+            formData.append("numsal", $("#numsal").val());
+            formData.append("fechasal", $("#fechasal").val());
         $.ajax({
          url: "../logica/Modificar.php",
          type: "POST",
-         data:  new FormData(this),
+         data:  formData,
          contentType: false,
          cache: false,
          processData:false,

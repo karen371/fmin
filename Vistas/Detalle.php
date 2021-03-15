@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="../css/StyleDetalle.css" type="text/css">
     <link rel="stylesheet" href="../css/Stylemenu.css" type="text/css">
     <title></title>
+    <style media="screen">
+      .carousel-item{
+        min-height: 400px;
+        background-size: cover;
+      }
+    </style>
 </head>
 <body>
     <?php include('menu.php');?>
@@ -165,12 +171,12 @@
                   <div class="mx-auto"> <h2>Detalle Egreso</h2> </div>
                   <div class="row">
                     <div class="col"> <label class="fw-bold">N° de guia</label> </div>
-                    <div class="col"> <label><?php echo $numS; ?></label> </div>
+                    <div class="col"> <label id="numS" ><?php echo $numS; ?></label> </div>
                     <div class="col"> </div>
                   </div>
                   <div class="row">
                     <div class="col"> <label class="fw-bold">Fecha de Egreso</label> </div>
-                    <div class="col"> <label ><?php echo $nfecha; ?></label> </div>
+                    <div class="col"> <label id="nfecha" ><?php echo $nfecha; ?></label> </div>
                     <div class="col">   </div>
                   </div>
                   <div class="row">
@@ -224,11 +230,13 @@
           </div>
         </div>
       </div>
+    <!------------------------------->
      <template id = "imp">
        <div class="container">
          <div class="h2 p-2">Informe </div>
          <div class="h3 p-2">Detalle de ingreso</div>
-         <style>.table,th,td{border-bottom: solid 0.5px gray ;}</style>
+         <style>.table,th,td{border-bottom: solid 0.5px gray ;}
+                .t,th,td{border-bottom: solid 0px gray ;}</style>
          <table id="table" class="table table-sm" style=' font-size: 12px;    margin: 45px;     width: 480px; text-align: left;    border-collapse: collapse;  "' >
            <tr>
              <th scope="col"><label class="fw-bold">SC</label></th>
@@ -274,11 +282,11 @@
                   <div class="h2">Detalle de Egreso</div>
                   <tr>
                     <th scope="row"><label class="fw-bold">N° de guia</label></th>
-                    <td scope="col"><label><?php echo $numS; ?></label></td>
+                    <td scope="col"><label id="numS"></label><label><?php echo $numS; ?></label></td>
                   </tr>
                   <tr>
                   <th scope="row"><label class="fw-bold">Fecha de Egreso</label></th>
-                  <td scope="col"><label ><?php echo $nfecha; ?></label></td>
+                  <td scope="col"><p id="nfecha"></p><label><?php echo $nfecha; ?></label></td>
                 </tr>
               </table>
             </div>
@@ -293,11 +301,11 @@
             try {
               $db = Conectar::conexion();
               $consulta=$db->query('SELECT * FROM imgot WHERE codfolio ='.$folio);
-              echo '<br><br><br><br><br><br><br><br><h3>Imagenes</h3>';
-              echo "<table>";
+              echo '<h3 style="page-break-before: always;">Imagenes</h3>';
+              echo "<table class='t'>";
               while ($row = $consulta->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td style='width: 300px; height: 250px;'><img class='d-block w-20' src='".$row['imagen']."' alt='".$row['descripcion']." style='width: 100px; height: 100px;'></td>";
+                echo "<td style='width: 250px; height: 250px;'><img class='d-block w-10' src='".$row['imagen']."' alt='".$row['descripcion']." style='width: 100px; height: 100px;'></td>";
                 echo "<td style='width: 300px; height: 250px;'><p>".$row['descripcion']."</p></td>";
                 echo "</tr>";
               }
@@ -351,7 +359,8 @@
              processData:false,
              beforeSend : function()
              {
-                 $("#mistake").fadeOut();
+                 $("#numS").html("").fadeOut();
+                 $("#nfecha").html("").fadeOut();
              },
              success: function(data){
                if(data == 'error' ){
@@ -361,15 +370,24 @@
                else if(data == 'vacio'){
                  $("#mistake").html('Error al ingresar los datos').fadeIn();
                }
-               else{alert(data);}
+               else{
+                 DetalleEgreso();
+                 alert(data);
+               }
              } ,
            });
          }
   }
-  $('#myCarousel').on('slid.bs.carousel', function () {
 
-    alert('hola');
-  })
+  function DetalleEgreso(){
+    var numero = "<?php echo $folio ?>";
+    $.post("../Controller/get_Egreso.php",{codigo: numero}, function(data){
+      var cadena = data;
+      var split = cadena.split('/');
+      $("#numS").html(''+split[0]).fadeIn();
+      $("#nfecha").html(''+split[1]).fadeIn();
+    });
+  }
 
 </script>
   </body>
